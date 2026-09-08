@@ -1,0 +1,1219 @@
+/* ============================================================
+   Base & Reset
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #f5f7fa;
+  --surface: #ffffff;
+  --surface-2: #edf2f8;
+  --border: #d7dee7;
+  --text: #101b2a;
+  --text-muted: #536173;
+  --accent-blue: #254fdd;
+  --accent-orange: #596b33;
+  --accent-green: #14735e;
+  --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 1rem;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  z-index: 9999;
+  padding: 0.5rem 1rem;
+  background: var(--accent-blue);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+.skip-link:focus {
+  left: 1rem;
+  top: 1rem;
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+/* ============================================================
+   Header
+   ============================================================ */
+.site-banner {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 1.25rem 2rem;
+}
+
+.header-brand {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.header-titles {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.hypothesis-line {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 0.5rem;
+  max-width: 52rem;
+  line-height: 1.45;
+}
+
+.site-banner h1 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #101b2a;
+  line-height: 1.2;
+}
+
+.subtitle {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+/* ============================================================
+   Main layout
+   ============================================================ */
+main {
+  padding: 1.5rem 2rem 2rem;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.vis-wrapper {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+/* ============================================================
+   Map panel
+   ============================================================ */
+.map-panel {
+  flex: 1 1 65%;
+  min-width: 0;
+}
+
+.map-panel h2,
+.compare-panel h2,
+.density-by-type h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #536173;
+  margin-bottom: 0.5rem;
+}
+
+.map-panel .map-heading-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+}
+
+.map-panel .map-heading-row h2 {
+  margin-bottom: 0;
+  flex: 1 1 auto;
+  min-width: 12rem;
+}
+
+.map-help-btn {
+  flex-shrink: 0;
+  min-height: 2.75rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 10px;
+  border: 1px solid var(--accent-blue);
+  background: rgba(59, 130, 246, 0.12);
+  color: #254fdd;
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.2;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+}
+
+.map-help-btn .map-help-icon {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.map-help-btn:hover,
+.map-help-btn:focus-visible {
+  background: rgba(59, 130, 246, 0.12);
+  border-color: var(--accent-blue);
+  outline: none;
+}
+
+.map-help-btn:focus-visible {
+  box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent-blue);
+}
+
+.unit {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+.map-frame {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+#map {
+  display: block;
+  width: 100%;
+  height: auto;
+  cursor: grab;
+}
+
+#map:focus { outline: none; }
+
+#map:active {
+  cursor: grabbing;
+}
+
+/* ============================================================
+   Map legend
+   ============================================================ */
+#map-legend {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  z-index: 2;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.map-zoom-controls {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 4px;
+  pointer-events: auto;
+}
+
+.map-zoom-btn {
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  margin: 0;
+  border: none;
+  border-radius: 4px;
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  font-family: var(--font, sans-serif);
+}
+
+.map-zoom-btn:hover,
+.map-zoom-btn:focus-visible {
+  background: rgba(59, 130, 246, 0.2);
+  outline: none;
+}
+
+.map-zoom-btn:focus-visible {
+  box-shadow: 0 0 0 2px var(--accent-blue);
+}
+
+#map-legend .legend-title {
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+  font-size: 0.75rem;
+}
+
+#map-legend .legend-bar-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+#map-legend .legend-bar {
+  width: 100px;
+  height: 10px;
+  border-radius: 2px;
+}
+
+#map-legend .legend-labels {
+  display: flex;
+  justify-content: space-between;
+  width: 100px;
+  margin-top: 2px;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+/* ============================================================
+   Tooltip
+   ============================================================ */
+#map-tooltip,
+#scatter-tooltip {
+  position: fixed;
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 12px 14px;
+  font-size: 0.85rem;
+  color: var(--text);
+  pointer-events: none;
+  z-index: 1000;
+  max-width: 320px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  display: none;
+}
+
+#map-tooltip .tt-title,
+#scatter-tooltip .tt-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+  color: #101b2a;
+}
+
+#map-tooltip .tt-row,
+#scatter-tooltip .tt-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  line-height: 1.65;
+}
+
+#map-tooltip .tt-row + .tt-row,
+#scatter-tooltip .tt-row + .tt-row {
+  margin-top: 2px;
+}
+
+#map-tooltip .tt-label,
+#scatter-tooltip .tt-label {
+  color: var(--text-muted);
+}
+
+#map-tooltip .tt-value,
+#scatter-tooltip .tt-value {
+  font-weight: 600;
+  color: #101b2a;
+}
+
+#map-tooltip .tt-hint {
+  display: block;
+  margin-top: 8px;
+  padding-top: 6px;
+  border-top: 1px solid var(--border);
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+/* ============================================================
+   Compare panel (right side — dynamic place vs. county)
+   ============================================================ */
+.compare-panel {
+  flex: 1 1 35%;
+  min-width: 24rem;
+  position: relative;
+  /* Unified typography scale for panel chrome (former “readable” is baseline) */
+  --compare-fs-title: clamp(1.05rem, 0.95rem + 0.6vw, 1.2rem);
+  --compare-fs-sub: clamp(0.875rem, 0.8rem + 0.35vw, 0.95rem);
+  --compare-fs-caption: clamp(0.9rem, 0.84rem + 0.22vw, 0.98rem);
+  --compare-fs-body: clamp(0.95rem, 0.88rem + 0.35vw, 1.05rem);
+  --compare-fs-stat: clamp(0.9rem, 0.82rem + 0.3vw, 1rem);
+  --compare-fs-small: clamp(0.8125rem, 0.76rem + 0.25vw, 0.9rem);
+  transition: box-shadow 0.28s ease, transform 0.28s ease;
+}
+
+.compare-heading-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.35rem;
+}
+
+.compare-heading-row h2 {
+  margin-bottom: 0;
+  flex: 1 1 12rem;
+  min-width: 0;
+}
+
+.compare-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.5rem;
+  flex-shrink: 0;
+  align-items: center;
+}
+
+.compare-tool-btn {
+  min-height: 2.5rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid rgba(59, 130, 246, 0.65);
+  background: rgba(59, 130, 246, 0.16);
+  color: #254fdd;
+  font-size: clamp(0.8125rem, 0.75rem + 0.35vw, 0.9rem);
+  font-weight: 600;
+  font-family: var(--font);
+  cursor: pointer;
+  line-height: 1.2;
+}
+
+.compare-tool-btn:hover {
+  border-color: var(--accent-blue);
+  background: rgba(59, 130, 246, 0.28);
+  color: #101b2a;
+}
+
+.compare-tool-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent-blue);
+}
+
+.compare-panel .chart-caption {
+  font-size: var(--compare-fs-caption);
+  margin-bottom: 0.65rem;
+}
+
+.compare-expand-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  background: rgba(15, 23, 42, 0.72);
+  border: none;
+  padding: 0;
+  margin: 0;
+  opacity: 0;
+  transition: opacity 0.28s ease;
+}
+
+.compare-expand-backdrop--open {
+  display: block;
+  opacity: 1;
+}
+
+.compare-panel.compare-panel--expanded {
+  position: fixed;
+  z-index: 910;
+  inset: clamp(0.75rem, 2.5vw, 1.5rem);
+  width: min(68rem, calc(100vw - clamp(1.5rem, 5vw, 3rem)));
+  max-width: none;
+  max-height: none;
+  margin: auto;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: clamp(1rem, 2.6vw, 1.5rem) clamp(1rem, 3vw, 1.75rem);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.45);
+}
+
+.compare-panel.compare-panel--expanded .compare-heading-row,
+.compare-panel.compare-panel--expanded .chart-caption {
+  flex-shrink: 0;
+}
+
+.compare-panel.compare-panel--expanded .compare-heading-row {
+  margin-bottom: 0.5rem;
+}
+
+.compare-panel.compare-panel--expanded .compare-frame {
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: none;
+  padding: clamp(0.85rem, 2vw, 1.25rem);
+  gap: 0.85rem;
+}
+
+.compare-panel.compare-panel--expanded .compare-chart-stage {
+  min-height: 0;
+  display: block;
+}
+
+.compare-panel.compare-panel--expanded .compare-stats {
+  margin-top: 0.35rem;
+  padding-top: 1rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .compare-panel {
+    transition: none;
+  }
+
+  .compare-expand-backdrop {
+    transition: none;
+  }
+}
+
+.compare-frame {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: clamp(16px, 2.2vw, 22px);
+  min-height: 340px;
+  max-height: min(72vh, 680px);
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.compare-frame:focus-visible {
+  outline: 2px solid var(--accent-blue);
+  outline-offset: 2px;
+}
+
+/* Outranks `.compare-empty { display: flex }` so the [hidden] attribute
+   actually hides the empty-state prompt once a marker has been clicked. */
+.compare-frame [hidden] {
+  display: none;
+}
+
+.compare-empty {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: clamp(0.875rem, 0.8rem + 0.25vw, 0.95rem);
+  padding: 24px 8px;
+  line-height: 1.5;
+}
+
+.compare-empty-icon {
+  font-size: 1.6rem;
+  margin-bottom: 8px;
+  color: #254fdd;
+}
+
+/* viewBox / aspect-ratio: sync with js/compareChart.js */
+.compare-chart-stage {
+  width: 100%;
+  flex-shrink: 0;
+  min-width: 0;
+}
+
+#compare-chart {
+  display: block;
+  width: 100%;
+  height: auto;
+  flex-shrink: 0;
+  aspect-ratio: 640 / 390;
+}
+
+.compare-panel.compare-panel--expanded #compare-chart {
+  aspect-ratio: 640 / 470;
+}
+
+.compare-place-header {
+  margin-bottom: 0.35rem;
+}
+
+.compare-place-title {
+  font-size: var(--compare-fs-title);
+  font-weight: 700;
+  color: #101b2a;
+}
+
+.compare-place-sub {
+  font-size: var(--compare-fs-sub);
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+.compare-metric-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  font-size: clamp(0.82rem, 0.78rem + 0.2vw, 0.92rem);
+  color: var(--text-muted);
+  margin-top: 0;
+  flex-shrink: 0;
+}
+
+.compare-metric-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.compare-narrative {
+  font-size: var(--compare-fs-body);
+  line-height: 1.5;
+  color: var(--text);
+  margin: 0 0 8px;
+}
+
+.compare-narrative strong {
+  font-weight: 600;
+  color: #101b2a;
+}
+
+.compare-stats {
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+  margin-top: 6px;
+  font-size: var(--compare-fs-stat);
+}
+
+.compare-stat-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 3px 0;
+  color: var(--text-muted);
+}
+
+.compare-stat-row span:first-child {
+  min-width: 0;
+}
+
+.compare-stat-row span:last-child {
+  text-align: right;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.compare-gap-legend {
+  font-size: var(--compare-fs-small);
+  color: var(--text-muted);
+  line-height: 1.45;
+  margin: 6px 0 0;
+  padding: 8px 10px;
+  background: var(--surface-2);
+  border-radius: 6px;
+  border: 1px solid var(--border);
+}
+
+/* ============================================================
+   Density-by-type section (rural vs. urban — static, below)
+   ============================================================ */
+.density-by-type {
+  margin-top: 2rem;
+  max-width: 720px;
+}
+
+.chart-caption {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.scatter-frame {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  padding: 8px;
+}
+
+#scatterplot {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.scatter-legend {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 8px;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.scatter-counts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  margin-top: 6px;
+  font-size: 0.82rem;
+}
+
+.scatter-count {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+}
+
+.scatter-count-label {
+  color: var(--text-muted);
+}
+
+.scatter-count-value {
+  color: #101b2a;
+  font-weight: 600;
+}
+
+/* ============================================================
+   Rural poverty vs county (summary bar)
+   ============================================================ */
+.rural-poverty-summary {
+  margin-top: 2.5rem;
+  max-width: 720px;
+}
+
+.rural-poverty-frame {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 16px 16px;
+}
+
+.rural-poverty-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  margin-bottom: 8px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.rural-poverty-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.legend-swatch {
+  display: inline-block;
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 3px;
+  flex: 0 0 auto;
+}
+
+.legend-swatch-higher {
+  background: #254fdd;
+}
+
+.legend-swatch-same {
+  background: #64748b;
+}
+
+.legend-swatch-lower {
+  background: #7da72e;
+}
+
+#rural-poverty-bar {
+  display: block;
+  width: 100%;
+  max-width: 640px;
+  height: auto;
+}
+
+.rural-poverty-axis {
+  font-size: 0.75rem;
+  fill: var(--text-muted);
+  font-family: var(--font);
+}
+
+.rural-poverty-stats {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0 0;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+.rural-poverty-stats li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.rural-poverty-stats li:last-child {
+  border-bottom: none;
+}
+
+.rural-poverty-stats strong {
+  color: #101b2a;
+}
+
+.rural-poverty-note {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 10px;
+}
+
+/* ============================================================
+   First-visit scroll toast
+   ============================================================ */
+.first-visit-toast {
+  position: fixed;
+  bottom: 1.1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 900;
+  width: min(32rem, calc(100vw - 2rem));
+  padding: 0.2rem 2.25rem 0.2rem 0.2rem;
+  background: rgba(30, 41, 59, 0.96);
+  border: 1px solid rgba(59, 130, 246, 0.55);
+  border-radius: 999px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  color: var(--text);
+}
+
+.first-visit-toast-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 2.5rem;
+  color: #101b2a;
+  font-size: 0.92rem;
+  font-weight: 700;
+  line-height: 1.15;
+  text-align: center;
+  text-decoration: none;
+}
+
+.first-visit-toast-kicker {
+  color: #254fdd;
+  white-space: nowrap;
+}
+
+.first-visit-toast-main {
+  min-width: 0;
+}
+
+.first-visit-toast-dismiss {
+  position: absolute;
+  top: 50%;
+  right: 0.3rem;
+  transform: translateY(-50%);
+  width: 1.75rem;
+  height: 1.75rem;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.first-visit-toast-dismiss:hover,
+.first-visit-toast-dismiss:focus-visible {
+  background: var(--surface-2);
+  color: var(--text);
+  outline: none;
+}
+
+/* ============================================================
+   Axis & chart text
+   ============================================================ */
+.axis text {
+  fill: var(--text-muted);
+  font-size: 12px;
+  font-family: var(--font);
+}
+
+.axis line,
+.axis path {
+  stroke: var(--border);
+}
+
+.axis-label {
+  fill: var(--text-muted);
+  font-size: 12px;
+  font-family: var(--font);
+}
+
+/* ============================================================
+   County path base styles
+   ============================================================ */
+.county-path {
+  transition: stroke-width 0.1s;
+  outline: none;
+}
+
+/* Spotlight effect: when a marker is hovered, the entire choropleth
+   base dims so the highlighted place's polygon (drawn on top in
+   gPlaceHL) reads at full saturation. */
+.g-county-base.dimmed {
+  opacity: 0.32;
+  transition: opacity 0.12s ease-out;
+}
+
+/* SVG outlines paint a tight rectangle around the bbox of the focused
+   element — for a viewport-sized county that reads as "the whole map is
+   highlighted blue". Use :focus-visible (keyboard only) and an inset SVG
+   stroke instead so the focus ring stays inside the county outline. */
+.county-path:focus { outline: none; }
+
+.county-path:focus-visible {
+  stroke: var(--accent-blue);
+  stroke-width: 2;
+}
+
+/* ============================================================
+   Pin styles
+   ============================================================ */
+.pin circle {
+  fill-opacity: 1;
+  transition: r 0.15s, fill-opacity 0.12s ease-out;
+}
+
+.pin text {
+  opacity: 1;
+  transition: opacity 0.12s ease-out;
+}
+
+/* Fade marker fill so the highlighted place polygon (below in gPlaceHL)
+   shows through; stroke ring stays for hover/focus affordance. */
+.pin:hover circle,
+.pin:focus circle,
+.pin:active circle {
+  fill-opacity: 0.4;
+}
+
+.pin:hover circle,
+.pin:focus-visible circle {
+  stroke: var(--accent-blue);
+}
+
+.pin:hover text,
+.pin:focus text,
+.pin:active text {
+  opacity: 0.92;
+}
+
+.pin:focus {
+  outline: none;
+}
+
+.pin:focus circle {
+  stroke: var(--accent-blue);
+  stroke-width: 2px;
+}
+
+/* ============================================================
+   Bar chart
+   ============================================================ */
+.bar-group {
+  cursor: default;
+}
+
+.bar-value {
+  fill: var(--text);
+  font-size: 12px;
+  font-family: var(--font);
+  font-weight: 700;
+}
+
+.bar-subtext,
+.bar-chart-note {
+  fill: var(--text-muted);
+  font-size: 11px;
+  font-family: var(--font);
+}
+
+/* ============================================================
+   Data link & footer
+   ============================================================ */
+.data-link {
+  margin-top: 1.5rem;
+  font-size: 0.88rem;
+}
+
+.data-link a {
+  color: var(--accent-blue);
+  text-decoration: none;
+}
+
+.data-link a:hover,
+.data-link a:focus {
+  text-decoration: underline;
+  outline: 2px solid var(--accent-blue);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+footer {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 0.75rem 2rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 2rem;
+}
+
+footer a {
+  color: var(--accent-blue);
+  text-decoration: none;
+}
+
+.load-error {
+  background: #7f1d1d;
+  color: #254fdd;
+  padding: 12px 16px;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 1100px) {
+  .vis-wrapper {
+    flex-direction: column;
+  }
+
+  .map-panel,
+  .compare-panel {
+    flex: 1 1 100%;
+    min-width: 0;
+  }
+
+  .compare-panel {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .site-banner {
+    padding: 1rem;
+  }
+
+  main {
+    padding: 1rem;
+  }
+
+  .site-banner h1 {
+    font-size: 1.2rem;
+  }
+
+  .first-visit-toast {
+    bottom: 0.75rem;
+    width: min(30rem, calc(100vw - 1.5rem));
+    border-radius: 14px;
+  }
+
+  .first-visit-toast-link {
+    align-items: flex-start;
+    text-align: left;
+  }
+}
+
+/* ============================================================
+   Zoom instruction overlay
+   ============================================================ */
+.zoom-hint {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(15, 23, 42, 0.8);
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  padding: 4px 10px;
+  border-radius: 99px;
+  border: 1px solid var(--border);
+  pointer-events: none;
+  transition: opacity 0.4s;
+}
+
+.zoom-hint.hidden {
+  opacity: 0;
+}
+
+/* ============================================================
+   Site help dialog (closed = no layout — do not override UA display:none)
+   ============================================================ */
+dialog.help-dialog:not([open]) {
+  display: none;
+}
+
+.help-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.help-dialog[open] {
+  margin: auto;
+  max-width: min(54rem, 94vw);
+  max-height: min(88vh, 46rem);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--text);
+  padding: 0;
+  font-family: var(--font);
+}
+
+.help-dialog header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  flex-shrink: 0;
+  margin: 0;
+  padding: 0.85rem 2.75rem 0.85rem 1rem;
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+  background: var(--surface);
+  isolation: isolate;
+}
+
+.help-dialog-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #101b2a;
+}
+
+.help-dialog-close {
+  position: absolute;
+  top: 50%;
+  right: 0.65rem;
+  transform: translateY(-50%);
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  border-radius: 6px;
+  background: var(--surface-2);
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 1.15rem;
+  line-height: 1;
+}
+
+.help-dialog-close:hover,
+.help-dialog-close:focus-visible {
+  color: var(--text);
+  outline: none;
+}
+
+.help-dialog-close:focus-visible {
+  box-shadow: 0 0 0 2px var(--accent-blue);
+}
+
+.help-dialog-body {
+  padding: 0.85rem 1rem 1.1rem;
+  overflow-y: auto;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+.help-dialog-body h3 {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #536173;
+  margin: 0.85rem 0 0.4rem;
+}
+
+.help-dialog-body h3:first-child {
+  margin-top: 0;
+}
+
+.help-dialog-body ul {
+  padding-left: 1.25rem;
+  margin: 0;
+}
+
+.help-dialog-body li + li {
+  margin-top: 0.45rem;
+}
+
+.help-dialog-body dfn {
+  font-style: normal;
+  font-weight: 600;
+  color: #101b2a;
+}
+
+.help-nav-figures {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+  margin: 0.9rem 0 0.2rem;
+}
+
+.help-nav-figures figure {
+  margin: 0;
+  min-width: 0;
+}
+
+.help-nav-figures img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: contain;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-2);
+}
+
+.help-nav-figures figcaption {
+  margin-top: 0.4rem;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: var(--text-muted);
+}
+
+@media (max-width: 720px) {
+  .help-nav-figures {
+    grid-template-columns: 1fr;
+  }
+}

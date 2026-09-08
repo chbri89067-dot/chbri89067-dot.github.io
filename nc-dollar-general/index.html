@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NC Dollar General Saturation Analysis</title>
+  <link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/portfolio-theme.css">
+<script>if(new URLSearchParams(location.search).has("embed"))document.documentElement.classList.add("embedded");</script>
+</head>
+<body>
+
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <header role="banner" class="site-banner">
+    <div class="header-brand">
+      <div class="header-titles">
+        <a class="portfolio-back" href="../index.html#playground" target="_top">← Brian Chung / data</a><h1>North Carolina · stores &amp; communities</h1>
+        <p class="hypothesis-line">
+          In Census communities with higher Dollar General store density than their <strong>adjusted county</strong> benchmark (county minus this place), is the <strong>place</strong> poverty rate higher than the <strong>adjusted county poverty</strong> for the surrounding area (same subtraction)? County shading on the map still uses each county’s <strong>overall</strong> store density and poverty.
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <div class="vis-wrapper">
+
+      <div class="map-panel">
+        <div class="map-heading-row">
+          <h2>Store Density by County <span class="unit">(stores per 10,000 residents)</span></h2>
+          <button type="button" id="site-help-trigger" class="map-help-btn"
+            aria-label="Help: how to use this page and glossary" aria-expanded="false" aria-controls="site-help">
+            <span class="map-help-icon" aria-hidden="true">?</span>
+            <span>Help</span>
+          </button>
+        </div>
+        <div class="map-frame" id="map-frame">
+          <svg id="map"
+            role="img"
+            aria-label="Choropleth map of North Carolina counties shaded by Dollar General store density per 10,000 residents. Use Plus and Minus on the map corner, scroll, or pinch to zoom. Place markers appear at roughly three-times zoom or higher. Click a county to zoom into it; click a marker to open the comparison panel. Open Help for definitions.">
+          </svg>
+          <div id="map-legend" aria-label="Map color legend: pale blue indicates low store density, deep blue indicates high store density"></div>
+          <div id="map-tooltip" role="tooltip" aria-live="polite" aria-atomic="true"></div>
+        </div>
+      </div>
+
+      <div id="compare-expand-backdrop" class="compare-expand-backdrop" hidden aria-hidden="true"></div>
+      <div id="compare-panel" class="compare-panel" aria-label="Place versus adjusted county comparison panel" aria-live="polite">
+        <div class="compare-heading-row">
+          <h2 id="compare-panel-heading">Place vs. adjusted county</h2>
+          <div class="compare-toolbar">
+            <button type="button" id="compare-expand-btn" class="compare-tool-btn"
+              aria-expanded="false" aria-controls="compare-panel-region">
+              Expand chart
+            </button>
+          </div>
+        </div>
+        <p class="chart-caption" id="compare-panel-desc">
+          Click a marker to compare this place’s Dollar General density and poverty rate to the <strong>adjusted county</strong> benchmarks (county totals minus this place). Densities are stores per 10,000 residents; poverty uses ACS counts for the same subtraction.
+        </p>
+        <div id="compare-panel-region" class="compare-frame" tabindex="0" role="region" aria-labelledby="compare-panel-heading" aria-describedby="compare-panel-desc">
+          <div id="compare-empty" class="compare-empty">
+            <span class="compare-empty-icon" aria-hidden="true">↑</span>
+            <span>Zoom into a county and click a marker to see a comparison here.</span>
+          </div>
+          <div id="compare-place-header" class="compare-place-header" hidden></div>
+          <div class="compare-chart-stage">
+            <svg id="compare-chart" focusable="false" role="img" aria-label="Place versus adjusted county benchmarks for store density and poverty" hidden></svg>
+          </div>
+          <div id="compare-stats" class="compare-stats" hidden></div>
+        </div>
+      </div>
+
+    </div>
+
+    <section class="density-by-type" id="density-by-type" aria-label="Average store density by community type">
+      <h2>Average Store Density by Community Type</h2>
+      <p class="chart-caption">
+        Rural and urban communities are compared by their average Dollar General
+        store density per 10,000 residents.
+      </p>
+      <div class="scatter-frame">
+        <svg id="scatterplot"
+          role="img"
+          aria-label="Horizontal bar chart comparing average Dollar General store density for rural and urban communities, where a community counts as Urban if at least 51 percent of its 2020 Census population lives in a Census-defined urban area.">
+        </svg>
+      </div>
+      <div class="scatter-legend" aria-label="Bar chart legend">
+        <span class="legend-item rural">
+          <svg width="14" height="14" aria-hidden="true"><rect x="2" y="3" width="10" height="8" rx="2" fill="#254fdd"/></svg>
+          Rural (&lt; 51% urban share)
+        </span>
+        <span class="legend-item urban">
+          <svg width="14" height="14" aria-hidden="true"><rect x="2" y="3" width="10" height="8" rx="2" fill="#7da72e"/></svg>
+          Urban (≥ 51% urban share)
+        </span>
+      </div>
+      <div id="scatter-counts" class="scatter-counts" aria-label="Community type counts"></div>
+      <div id="scatter-tooltip" role="tooltip" aria-live="polite" aria-atomic="true"></div>
+    </section>
+
+    <section class="rural-poverty-summary" id="rural-poverty-summary" aria-label="Rural places poverty compared to adjusted county">
+      <h2>Rural places: poverty vs. adjusted county</h2>
+      <p class="chart-caption">
+        Among <strong>rural</strong> Census places only: share of <strong>Dollar General store locations</strong> where the place poverty rate is higher, lower, or about the same as <strong>adjusted county poverty</strong> (county poor population minus place, divided by county population minus place) — weighted by store count. “About the same” uses a small tolerance for rounding.
+      </p>
+      <div class="rural-poverty-frame">
+        <div class="rural-poverty-legend" aria-label="Rural poverty summary legend">
+          <span><i class="legend-swatch legend-swatch-higher" aria-hidden="true"></i>Blue: rural place poverty higher than adjusted county</span>
+          <span><i class="legend-swatch legend-swatch-same" aria-hidden="true"></i>Gray: about the same</span>
+          <span><i class="legend-swatch legend-swatch-lower" aria-hidden="true"></i>Olive: rural place poverty lower than adjusted county</span>
+        </div>
+        <svg id="rural-poverty-bar"></svg>
+        <ul id="rural-poverty-stats" class="rural-poverty-stats"></ul>
+        <p id="rural-poverty-note" class="rural-poverty-note" hidden></p>
+      </div>
+    </section>
+
+    <p class="data-link">
+      <a href="data-table.html" target="_blank" rel="noopener" aria-label="View the full underlying dataset in an accessible HTML table">View underlying data table</a>
+    </p>
+  </main>
+
+  <footer role="contentinfo">
+    <p>
+      Data: U.S. Census Bureau ACS 2023 5-Year Estimates (Table S1701) &amp;
+      Dollar General location database (<a href="https://simplemaps.com" target="_blank" rel="noopener">Simplemaps.com</a>).
+      Store locations refer to banner Dollar General as represented in that database.
+      CSC 362 Final Project &mdash; Patrick Grimes &amp; Brian.
+      Some development used <strong>Cursor</strong> (AI-assisted editing).
+    </p>
+  </footer>
+
+  <div id="first-visit-scroll-toast" class="first-visit-toast" role="status" aria-live="polite" hidden>
+    <button type="button" class="first-visit-toast-dismiss" aria-label="Dismiss notification">×</button>
+    <a href="#density-by-type" class="first-visit-toast-link">
+      <span class="first-visit-toast-kicker">More below</span>
+      <span class="first-visit-toast-main">Average store density by rural/urban community</span>
+      <span aria-hidden="true">↓</span>
+    </a>
+  </div>
+
+  <dialog id="site-help" class="help-dialog" aria-labelledby="site-help-title">
+    <header>
+      <h2 id="site-help-title" class="help-dialog-title">Using this visualization</h2>
+      <button type="button" class="help-dialog-close" id="site-help-close" aria-label="Close help">×</button>
+    </header>
+    <div class="help-dialog-body">
+      <h3>Keyboard</h3>
+      <ul>
+        <li>Use <strong>Tab</strong> to move focus; <strong>Enter</strong> or <strong>Space</strong> activates the Help button when focus is on the page background, zooms into a focused <strong>county</strong>, opens the comparison panel for a focused <strong>marker</strong>, and shows or refreshes the details tooltip on the <strong>community-type</strong> bars (tooltips also appear when you tab onto a bar). The +/− controls are standard buttons. <strong>Escape</strong> closes this dialog when open, and dismisses the first-visit banner at the bottom when the dialog is closed. The map is primarily pointer-based; full geographic pan is not keyboard-complete.</li>
+        <li>Place markers are only in the <strong>Tab</strong> order after zoom is high enough for them to appear on the map (about <strong>3×</strong>).</li>
+        <li>After you load a place in the comparison panel, focus moves to that <strong>comparison card</strong> (or <strong>Tab</strong> to it). When the card is focused, use <strong>Arrow keys</strong>, <strong>Page Up</strong>/<strong>Page Down</strong>, <strong>Home</strong>, and <strong>End</strong> to scroll if the content is taller than the panel.</li>
+      </ul>
+
+      <h3>How to navigate</h3>
+      <ul>
+        <li>Zoom the map using the + and − controls (lower left), the scroll wheel or trackpad, or pinch-to-zoom on touch devices.</li>
+        <li>Click anywhere on a county to zoom deeper into it. With the keyboard, <strong>Tab</strong> to a county, then <strong>Enter</strong> or <strong>Space</strong>.</li>
+        <li>When zoom reaches about <strong>3×</strong> or higher, place markers appear. Each marker shows how many <strong>banner Dollar General</strong> stores are grouped at that Census place (<strong>1</strong>, <strong>2</strong>, etc.). This project does not include other chains (e.g. Dollar Tree) or formats absent from the dataset.</li>
+        <li><strong>Hover</strong> a marker to outline that community on top of its county shading. <strong>Click</strong> a marker to load the comparison charts and narrative in the panel on the right. With the keyboard, <strong>Tab</strong> to a marker (same highlight as hover), then <strong>Enter</strong> or <strong>Space</strong>.</li>
+        <li>To compare averages for rural versus urban communities, scroll to <strong>average store density by community type</strong> further down this page. <strong>Tab</strong> to each bar for a tooltip; <strong>Enter</strong> or <strong>Space</strong> also shows it.</li>
+      </ul>
+      
+
+      <h3>What the metrics mean</h3>
+      <ul>
+        <li><dfn>Place poverty</dfn>: share of people in this Census place whose poverty status is determined and who are below the poverty line.</li>
+        <li><dfn>Adjusted county poverty</dfn>: share of people below the poverty line in the county after removing this place — <strong>(county below poverty − place below poverty) / (county population − place population)</strong>. This matches the density adjustment: the place is not double-counted in the benchmark.</li>
+        <li><dfn>County map shading</dfn>: counties are still colored by <strong>overall store density</strong> and tooltips show the <strong>full-county</strong> poverty rate; only the place-level comparison panel and rural summary use the adjusted poverty benchmark.</li>
+        <li><dfn>Place store density</dfn>: Dollar General stores per <strong>10,000 residents</strong> for that Census place (people-based, not land area).</li>
+        <li><dfn>Adjusted county store density</dfn>: the county-wide stores-per-10k figure after excluding this place's stores — how saturated the rest of the county is versus that specific community.</li>
+        <li><dfn>Store density gap vs. adjusted county</dfn>: place store density minus adjusted county store density, in <strong>stores per 10,000 residents</strong>. A <strong>+</strong> means more stores per 10k in the place than the rest of the county; a <strong>−</strong> means fewer.</li>
+        <li><dfn>Urban vs. rural</dfn>: a place is <strong>Urban</strong> if at least 51% of its 2020 Census population lives in a Census-defined urban area; otherwise it is <strong>Rural</strong>.</li>
+      </ul>
+    </div>
+  </dialog>
+
+  <script src="js/d3.v7.min.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/scatterplot.js"></script>
+  <script src="js/compareChart.js"></script>
+  <script src="js/ruralPovertySummary.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    (function () {
+      const dlg = document.getElementById("site-help");
+      const btn = document.getElementById("site-help-trigger");
+      const closeBtn = document.getElementById("site-help-close");
+      if (!dlg || !btn) return;
+      btn.addEventListener("click", () => {
+        if (typeof dlg.showModal === "function") {
+          dlg.showModal();
+        } else {
+          dlg.setAttribute("open", "");
+        }
+        btn.setAttribute("aria-expanded", "true");
+      });
+      dlg.addEventListener("close", () => {
+        btn.setAttribute("aria-expanded", "false");
+        btn.focus();
+      });
+      if (closeBtn) closeBtn.addEventListener("click", () => {
+        if (typeof dlg.close === "function") {
+          dlg.close();
+        } else {
+          dlg.removeAttribute("open");
+          btn.setAttribute("aria-expanded", "false");
+          btn.focus();
+        }
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key !== "Enter" || e.repeat) return;
+        if (dlg.open) return;
+        const el = document.activeElement;
+        if (el === btn) return;
+        if (el && el.closest && el.closest("#site-help")) return;
+        if (el) {
+          const tag = el.tagName;
+          if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
+          if (el.isContentEditable) return;
+        }
+        const onBackground =
+          el == null ||
+          el === document.body ||
+          el === document.documentElement;
+        if (!onBackground) return;
+        e.preventDefault();
+        btn.click();
+      });
+    })();
+  </script>
+  <script>
+    (function () {
+      var toast = document.getElementById("first-visit-scroll-toast");
+      if (!toast) return;
+      var btn = toast.querySelector(".first-visit-toast-dismiss");
+      var link = toast.querySelector("a");
+      toast.hidden = false;
+      function dismiss() {
+        toast.hidden = true;
+      }
+      if (btn) btn.addEventListener("click", dismiss);
+      if (link) link.addEventListener("click", dismiss);
+      document.addEventListener("keydown", (e) => {
+        if (e.key !== "Escape" || toast.hidden) return;
+        const helpDlg = document.getElementById("site-help");
+        if (helpDlg && helpDlg.open) return;
+        dismiss();
+      });
+    })();
+  </script>
+
+<script src="js/portfolio-embed.js"></script>
+</body>
+</html>
