@@ -1,6 +1,6 @@
 # Brian Chung — Data Portfolio
 
-A static GitHub Pages portfolio focused on data engineering, analytics, and collaborative work. The original `trails-skeleton/` coursework remains unchanged.
+A static GitHub Pages portfolio focused on data engineering, analytics, and collaborative work. Includes Brian’s supplied Alaska portrait, an About page, and an embedded North Carolina Dollar General visualization. The original `trails-skeleton/` coursework remains unchanged.
 
 ## Local preview and build
 
@@ -13,7 +13,9 @@ Run `node build.mjs` to copy the public website into `dist/`. No dependencies ne
 - Edit biography, projects, evidence links, and timeline in `index.html`.
 - Update the theme in `portfolio.css` and interactions in `portfolio.js`.
 - Project filter categories live on each card’s `data-categories` attribute.
-- Trail data comes from the existing coursework CSV and uses the bundled D3 library.
+- About copy is in `about.html`, based on Brian’s stated interests and the reflective voice of his supplied writing samples. The essays themselves are not included in the website.
+- The supplied portrait is in `assets/brian-alaska.jpg` and is displayed without altering the original image.
+- The North Carolina explorer lives in `nc-dollar-general/`. It preserves the collaborative project’s data and interactions, with a portfolio theme, local D3 v7, and an accessible table synchronized to the same CSV/classification as the map.
 - Recheck contribution status and update the review date when refreshing the timeline.
 
 ## Attribution and scope
@@ -28,4 +30,4 @@ Sources:
 - https://github.com/Patrick-Grimes/Brian-patrick-csc362-final
 - https://github.com/chbri89067-dot/chbri89067-dot.github.io
 
-The new homepage and compact trail playground were prepared with Codex assistance. The original coursework is preserved and labeled separately.
+The homepage and personal-page adaptation were prepared with Codex assistance. The North Carolina visualization was adapted from Patrick Grimes and Brian’s CSC 362 project at source commit `93389f40fc93822e02971b5b08826a8ef91b477d`; credit and data sources are retained within the explorer. The source project is not modified by this portfolio adaptation. Its missing urban-share fallback to Rural is retained and disclosed in the data table. The original trail coursework is preserved and labeled separately.
