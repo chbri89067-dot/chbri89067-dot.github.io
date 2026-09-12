@@ -31,3 +31,13 @@ Sources:
 - https://github.com/chbri89067-dot/chbri89067-dot.github.io
 
 The homepage and personal-page adaptation were prepared with Codex assistance. The North Carolina visualization was adapted from Patrick Grimes and Brian’s CSC 362 project at source commit `93389f40fc93822e02971b5b08826a8ef91b477d`; credit and data sources are retained within the explorer. The source project is not modified by this portfolio adaptation. Its missing urban-share fallback to Rural is retained and disclosed in the data table. The original trail coursework is preserved and labeled separately.
+
+
+## Category homepage update
+The homepage ends after four expandable categories: Sports Analytics, Geospatial Analytics, Educational Software, and Data Visualization. Skills are prominent near the introduction; PySpark is a user-supplied skill, not a claim about the featured projects. About and the full visualizations remain separate routes.
+
+### Project visual sources
+- assets/hoopbase-database.jpg: original `Database diagram` from MadelineShi/NBA-dataset. Historical design diagram, not a guarantee of current schema details.
+- NC comparison panel: existing image from Patrick-Grimes/Brian-patrick-csc362-final.
+- assets/exam-reporting.svg: source-derived workflow diagram based on metalheads_312 README and merged analytics contribution; not a screenshot.
+- assets/trail-distance-duration.svg: plot generated from the original Vancouver trails CSV (distance/time).

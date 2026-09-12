@@ -1,9 +1,2 @@
 'use strict';
-const stages=[['01 / INGEST','Per-game shot logs are the source. Each row starts as one basketball shot, ready to become part of a larger picture.'],['02 / PREPARE','The team’s Python loader standardizes column names, prepares player and game records, and inserts shot data in batches.'],['03 / MODEL & AGGREGATE','Relational tables connect players, teams, games, and shots. SQL views calculate percentages and points directly from shot events.'],['04 / EXPLORE','Flask serves player searches, comparisons, team histories, and a JSON endpoint for interactive shot charts.']];
-document.querySelectorAll('[data-stage]').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('[data-stage]').forEach(other=>{other.classList.toggle('active',other===button);other.setAttribute('aria-pressed',String(other===button));});const[label,copy]=stages[Number(button.dataset.stage)];document.querySelector('#stage-detail span').textContent=label;document.querySelector('#stage-detail p').textContent=copy;}));
 document.querySelectorAll('[data-filter]').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('[data-filter]').forEach(other=>{other.classList.toggle('selected',other===button);other.setAttribute('aria-pressed',String(other===button));});let count=0;document.querySelectorAll('.project').forEach(project=>{project.hidden=button.dataset.filter!=='all'&&!project.dataset.categories.split(' ').includes(button.dataset.filter);if(!project.hidden)count++;});document.getElementById('project-count').textContent=`${count} projects shown`;}));
-const ncFrame=document.getElementById('nc-explorer');
-window.addEventListener('message',event=>{
- if(!ncFrame||event.origin!==window.location.origin||event.source!==ncFrame.contentWindow)return;
- if(event.data?.type==='nc-explorer-height'&&Number.isFinite(event.data.height))ncFrame.style.height=`${Math.min(12000,Math.max(650,event.data.height))}px`;
-});
