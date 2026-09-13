@@ -42,4 +42,4 @@ The homepage ends after four expandable categories: Sports Analytics, Geospatial
 - assets/exam-reporting.svg: source-derived workflow diagram based on metalheads_312 README and merged analytics contribution; not a screenshot.
 - assets/trail-distance-duration.svg: plot generated from the original Vancouver trails CSV (distance/time).
 - assets/hoopbase-homepage.png: browser capture rendered from the original HoopBase Flask templates and static files; the database was not required for this homepage view.
-- assets/nc-map-visualization.svg: rendered D3 county map exported from the deployed North Carolina explorer.
+- assets/nc-map-visualization.svg: static D3 choropleth generated from the project’s 100-county GeoJSON and stored county-density values.
