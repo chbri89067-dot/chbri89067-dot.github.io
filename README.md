@@ -2,6 +2,12 @@
 
 A static GitHub Pages portfolio focused on data engineering, analytics, and collaborative work. Includes Brian’s supplied Alaska portrait, an About page, and an embedded North Carolina Dollar General visualization. The original `trails-skeleton/` coursework remains unchanged.
 
+## Artwork: collage and animation
+
+The Artwork page also presents Brian’s final animated collage, **Palace intrigue**, with his three starting concepts (`flowers`, `jp`, and `Try1`) and a later experimentation image. The artist statement follows Brian’s own account: his mother’s love of ikebana and historical dramas, his concern about industrialization and faith, and the court roles, flowers, doors, sword, and disappearance used to express intrigue and assassination. These are his artistic interpretations, rather than identifications of specific historical people or universal claims about cultural symbolism.
+
+The five supplied JPG/GIF assets are preserved byte-for-byte in `assets/artwork/`; the PNG poster is an exact first-frame extraction for reduced-motion viewing and stopping playback. `artwork.js` provides replay and stop controls for the nine-second, play-once GIF. The existing **Fragments of Becoming** self-portrait and its process statement remain on the same page. The build copies `artwork.js` alongside the HTML and styles. The portfolio copy was polished from Brian’s description with Codex assistance; the Photoshop animation was developed using layers and a custom JSX script with Codex assistance.
+
 ## Local preview and build
 
 Serve this directory with any static HTTP server. The trail explorer needs HTTP to load its CSV; opening the HTML directly as a file may block that request.

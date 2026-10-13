@@ -3,18 +3,53 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Artwork — Fragments of Becoming | Brian Chung</title>
-  <meta name="description" content="Brian Chung’s self-portrait: stone, flowers, and the people who shape us. An artist statement and a process study connecting Illustrator, Photoshop, and code.">
+  <title>Artwork | Brian Chung</title>
+  <meta name="description" content="Brian Chung’s digital collages and animation: ikebana, palace intrigue, industry and faith, and the process behind the final assassination GIF and self-portrait.">
   <meta name="theme-color" content="#101b2a">
   <link rel="stylesheet" href="portfolio.css">
   <link rel="stylesheet" href="artwork.css">
+  <script src="artwork.js" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="wrap nav"><a class="brand" href="index.html">bc<span> / </span>data</a><nav aria-label="Main navigation"><a href="index.html#skills">Skills</a><a href="index.html#projects">Projects</a><a href="about.html">About me</a><a href="artwork.html" aria-current="page">Artwork</a><a href="https://github.com/chbri89067-dot">GitHub ↗</a></nav></header>
 <main id="main" class="art-page">
-  <section class="wrap art-intro">
-    <div><p class="eyebrow">ARTWORK / SELF-PORTRAIT</p><h1>Fragments of<br><em>becoming.</em></h1></div>
+  <section class="wrap art-intro art-collection-intro" aria-labelledby="artwork-title">
+    <div><p class="eyebrow">ARTWORK / COLLAGE &amp; ANIMATION</p><h1 id="artwork-title">Images of<br><em>what we carry.</em></h1></div>
+    <div><p class="art-deck">My artwork begins with the things that stay with me: my mother’s interests, my questions about faith, and the relationships that shape a person. Through collage and animation, I try to give those connections a visible form.</p><p class="art-medium">Photoshop · Digital collage · Animation</p><nav class="art-jump-links" aria-label="Artwork projects"><a href="#palace-intrigue">Palace intrigue ↓</a><a href="#collage-ideas">Three starting ideas ↓</a><a href="#self-portrait">Self-portrait ↓</a></nav></div>
+  </section>
+  <article id="palace-intrigue" class="art-project" aria-labelledby="intrigue-title">
+    <header class="wrap art-project-heading"><div><p class="eyebrow">01 / ANIMATED COLLAGE</p><h2 id="intrigue-title">Palace intrigue.</h2></div><p>A crowded court, a rising sword, and an absence left behind.</p></header>
+    <figure class="wrap art-animation">
+      <div class="art-animation-screen"><img id="court-animation" src="assets/artwork/court-intrigue-poster.png" data-animation="assets/artwork/court-intrigue-final.gif" data-poster="assets/artwork/court-intrigue-poster.png" width="960" height="540" alt="Animated Japanese court collage: a sword slowly rises, the picture darkens from top to bottom, and the scene returns with the purple-robed shogun at the lower left missing." fetchpriority="high"></div>
+      <figcaption><div><strong>Final artwork · animated collage</strong><span>Brian Chung · 9 seconds · GIF</span></div><div class="art-animation-controls" data-animation-controls hidden><button type="button" id="court-replay">Replay animation</button><button type="button" id="court-pause">Stop animation</button></div><a href="assets/artwork/court-intrigue-final.gif">Open the final GIF ↗</a></figcaption>
+      <p class="art-animation-status" id="court-animation-status" role="status" aria-live="polite">Final animation · nine seconds. Open the GIF to view it.</p>
+      <noscript><p class="art-animation-status">Open the final GIF in a new tab to replay it.</p></noscript>
+    </figure>
+    <section class="wrap art-story" aria-labelledby="intrigue-statement-title">
+      <div><p class="eyebrow">THE IDEA BEHIND JP</p><h2 id="intrigue-statement-title">What happens<br>behind the doors?</h2></div>
+      <div class="art-copy">
+        <p>This idea grew out of my mother’s love of historical dramas, especially stories about palace intrigue. I was interested in the relationships inside a court: who holds power, who depends on someone else, and how an apparently beautiful setting can contain suspicion and danger. I brought together figures to represent different court roles—a shogun, an emperor, a chief retainer, a concubine, and others—because each has a place in that network of intrigue.</p>
+        <p>The palace’s sliding doors became a symbol of entry into that world. A door separates what can be seen from what happens behind it. I wanted the background to suggest that entering the palace also means entering its hidden relationships. Around the faces, I used red spider lilies as symbols of death, drawing on the Japanese symbolism that informed this idea. Their placement near the nose, ears, mouth, and eyes connects the senses to the intrigue: what people see, smell, hear, and say within the house.</p>
+        <p>The sword contrasts with the surrounding ornament and the indirect ways intrigue unfolds. Whatever is whispered or concealed, its consequences can become physical. The visible blade is a reminder that death may be the outcome of these relationships. In the final animation, the sword slowly rises from its sheath in preparation for an assassination. The screen goes dark, and when the scene returns, the shogun is gone. The missing figure tells us what happened during the darkness.</p>
+      </div>
+    </section>
+    <section id="collage-ideas" class="art-process-band" aria-labelledby="collage-ideas-title"><div class="wrap">
+      <div class="art-process-heading"><p class="eyebrow">THREE STARTING POINTS</p><h2 id="collage-ideas-title">Different ideas.<br>A shared process.</h2><p>I began with three collage ideas, labelled <strong>flowers</strong>, <strong>jp</strong>, and <strong>Try1</strong>. Each grew from a different personal connection. JP became the direction I developed into the final GIF.</p></div>
+      <div class="art-concept-grid">
+        <article class="art-concept"><figure><a href="assets/artwork/flowers-concept.jpg" aria-label="Open the full-size flowers concept"><img src="assets/artwork/flowers-concept.jpg" width="1920" height="1080" loading="lazy" alt="Flowers collage with pale pink blossoms and winding stems over a patchwork of landscape paintings, bamboo, and botanical imagery."></a><figcaption>01 / flowers</figcaption></figure><h3>A connection through flowers</h3><p>This idea came from my mother’s love of ikebana. I wanted to touch on something meaningful to her through the arrangement of flowers and the space around them. The collage combines repeated landscape and botanical images with larger flowers and stems, bringing that personal connection into the foreground.</p></article>
+        <article class="art-concept"><figure><a href="assets/artwork/court-intrigue-concept.jpg" aria-label="Open the full-size jp concept"><img src="assets/artwork/court-intrigue-concept.jpg" width="1920" height="1080" loading="lazy" alt="Early JP collage of overlapping Japanese figures against gold palace screens, before the sword and red spider-lily details were added."></a><figcaption>02 / jp</figcaption></figure><h3>A court full of relationships</h3><p>My mother’s interest in historical dramas led me toward palace intrigue. In this starting composition, I brought different court roles together within a setting of gold screens and sliding doors. The figures’ proximity creates the sense of a shared court, while their different positions suggest the relationships I wanted to explore.</p></article>
+        <article class="art-concept"><figure><a href="assets/artwork/industry-faith-concept.jpg" aria-label="Open the full-size Try1 concept"><img src="assets/artwork/industry-faith-concept.jpg" width="1920" height="1080" loading="lazy" alt="Try1 collage combining smoky factories, portraits associated with Enlightenment ideas, reaching hands from The Creation of Adam, and Christian religious imagery."></a><figcaption>03 / Try1</figcaption></figure><h3>Industry and a distance from God</h3><p>Try1 began with my concern that industrialization has severed our connection with God. I was thinking about Enlightenment ideas of reason and progress, and what might be lost when industrial achievement becomes a measure of human life. By placing factories beside portraits and religious imagery, I wanted to make that spiritual distance visible.</p></article>
+      </div>
+    </div></section>
+    <section class="wrap art-development" aria-labelledby="collage-development-title">
+      <figure class="art-experiment"><a href="assets/artwork/court-intrigue-experimentation.jpg" aria-label="Open the full-size JP experimentation image"><img src="assets/artwork/court-intrigue-experimentation.jpg" width="1920" height="1080" loading="lazy" alt="JP experimentation collage with a red palace background, a fully visible sword, and red spider-lily details placed around the figures’ faces."></a><figcaption>JP experimentation · a still variation with a red background, the sword, and floral details.</figcaption></figure>
+      <div class="art-copy"><p class="eyebrow">FROM STILL IMAGE TO ANIMATION</p><h2 id="collage-development-title">Making the<br>absence matter.</h2><p>I developed JP through different arrangements and colour treatments. The experimentation image records one of those variations: the red background, the floral details, and the sword make the danger more explicit. The final GIF returns to the gold palace setting and adds a sequence of events to the composition.</p><p>I used Photoshop layers and a custom JSX script to animate the sword while keeping the flowers, background, and remaining figures fixed. The blackout moves through the top, middle, and bottom of the picture, then holds before the character disappears. When the artwork fades back in, the empty place changes how we read the scene.</p><p>The timing became part of the idea. The slowly rising blade builds anticipation, the darkness conceals the act, and the pause makes the final absence something the viewer has time to notice. The GIF is the finished work; the three initial collages and the experimentation still show how I arrived there.</p></div>
+    </section>
+  </article>
+  <article id="self-portrait" class="art-project art-portrait-project" aria-label="Fragments of Becoming self-portrait">
+  <section class="wrap art-intro art-project-intro">
+    <div><p class="eyebrow">02 / SELF-PORTRAIT</p><h2>Fragments of<br><em>becoming.</em></h2></div>
     <div><p class="art-deck">I think the people around us and the environments we live in become part of who we are. Through this portrait, I wanted to question how those influences can restrict us, and how something within us still reaches toward love and God.</p><p class="art-medium">Illustrator · Photoshop · Code</p><a href="#process">Explore the process ↓</a></div>
   </section>
   <figure class="wrap art-finished">
@@ -48,6 +83,7 @@
     <article><h3>Hegel · the self in a social world</h3><p>Hegel’s account of freedom gives social relationships and institutions a constitutive role. The image of imposed conditions hardening into stone is my interpretation, rather than a quotation or a claim that Hegel saw society only as a restriction.</p><a href="https://plato.stanford.edu/entries/hegel-social-political/">Read: Hegel’s Social and Political Philosophy ↗</a></article>
     <article><h3>Kierkegaard · faith and inwardness</h3><p>In <cite>Fear and Trembling</cite>, the “teleological suspension of the ethical” concerns Abraham, his relation to God, and a paradoxical conflict with universal ethical duty. My flowers borrow that tension symbolically; the concept is not simply another name for personal growth or permission to disregard others.</p><a href="https://plato.stanford.edu/entries/kierkegaard/">Read: Søren Kierkegaard ↗</a></article>
   </div></section>
+  </article>
 </main>
 <footer class="wrap footer"><span>Brian Chung / Art, curiosity & technology.</span><a href="index.html">Back to my portfolio ↗</a></footer>
 </body>
