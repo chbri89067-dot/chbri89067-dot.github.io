@@ -1,0 +1,9 @@
+{
+  "name": "Mars VR — phone viewer",
+  "short_name": "Mars VR",
+  "start_url": "./?cardboard=1",
+  "display": "standalone",
+  "orientation": "landscape",
+  "background_color": "#090d16",
+  "theme_color": "#0f172a"
+}

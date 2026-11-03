@@ -1,0 +1,12 @@
+Space Flight
+Author: wipics
+Source: https://opengameart.org/content/space-flight
+Original download: https://opengameart.org/sites/default/files/space_flight_0.mp3
+Retrieved: 2026-10-30
+
+The author's source listing identifies the track as CC0 and its attribution notice as Public Domain.
+CC0 1.0 Universal: https://creativecommons.org/publicdomain/zero/1.0/
+
+Bundled file: space-flight-wipics.mp3
+SHA-256: c1e28034a8bbf8abebf18bb30cfd1b8723ef79ada4759ef96ec80d4bd7a1dd64
+No audio editing was applied; the scene changes playback volume and loops it.

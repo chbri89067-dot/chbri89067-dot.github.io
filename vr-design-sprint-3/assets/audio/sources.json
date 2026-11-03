@@ -1,0 +1,48 @@
+{
+  "retrieved": "2026-10-30",
+  "upstream": {
+    "repository": "https://github.com/chbri89067-dot/VR-Design-Sprint-3",
+    "commit": "cb2afbd76a7a62448dfaed5676de696201462646",
+    "author": "jesse-carr"
+  },
+  "assets": [
+    {
+      "file": "space-flight-wipics.mp3",
+      "title": "Space Flight",
+      "author": "wipics",
+      "role": "Scene 2 ambient music loop; fades in at handoff",
+      "source": "https://opengameart.org/content/space-flight",
+      "download": "https://opengameart.org/sites/default/files/space_flight_0.mp3",
+      "license": "CC0 1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sha256": "c1e28034a8bbf8abebf18bb30cfd1b8723ef79ada4759ef96ec80d4bd7a1dd64"
+    },
+    {
+      "file": "click_001.ogg",
+      "author": "Kenney",
+      "role": "Gravity control confirmation click",
+      "source": "https://kenney.nl/assets/interface-sounds",
+      "license": "CC0 1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sha256": "ccfb7fa0cccdd9faec0eb16033c732b1e308d139d80f799161495d58f7adcdb9"
+    },
+    {
+      "file": "forceField_000.ogg",
+      "author": "Kenney",
+      "role": "Gravity field switching effect",
+      "source": "https://kenney.nl/assets/sci-fi-sounds",
+      "license": "CC0 1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sha256": "c2916f2a062c8ddd1aca2826d134fe90847037db31342726ffb0f9097afe339c"
+    },
+    {
+      "file": "spaceEngineLow_000.ogg",
+      "author": "Kenney",
+      "role": "Low interior cabin hum during Scene 2",
+      "source": "https://kenney.nl/assets/sci-fi-sounds",
+      "license": "CC0 1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "sha256": "d7deee8d7217ce63aab802ad7365a59cacfd243392dc1bd03b0a9d454aa494df"
+    }
+  ]
+}
