@@ -2,6 +2,14 @@
 
 A static GitHub Pages portfolio focused on data engineering, analytics, and collaborative work. Includes Brian’s supplied Alaska portrait, an About page, and an embedded North Carolina Dollar General visualization. The original `trails-skeleton/` coursework remains unchanged.
 
+## Artwork: Vivaldi’s Summer
+
+**A light to keep going** is the featured 40-second music-driven animation on `artwork.html#vivaldi-summer`. The original final MP4 is published unchanged at `assets/artwork/vivaldi-a-light-to-keep-going.mp4`: 1920 × 1080, progressive, 30000/1001 fps (29.97), H.264 with stereo AAC. The poster is a frame extracted from that export. Native video controls provide sound, seeking, replay and fullscreen; the video does not autoplay or loop. A written visual description is available below it.
+
+The first-person statement is edited from Brian’s account of learning piano, returning to this music near the end of school, moving to a new country, studying at Davidson away from family, and finding hope through difficulty. It explains the thunder, supernovas, waves, ravine, accumulating lights and deliberate abrupt ending as his interpretation. The musical context separately identifies the excerpt as the third movement, Presto, of Vivaldi’s Summer (Op. 8, No. 2, RV 315), with links to the Australian Chamber Orchestra and Los Angeles Philharmonic. The sonnet’s authorship is described as uncertain. No recording performer is identified because that information was not supplied.
+
+The animation and editable project were developed with Codex assistance. The exposition was edited from Brian’s supplied personal story with Codex assistance. Existing collage, self-portrait, portfolio and VR work remain in place.
+
 ## Artwork: collage and animation
 
 The Artwork page also presents Brian’s final animated collage, **Palace intrigue**, with his three starting concepts (`flowers`, `jp`, and `Try1`) and a later experimentation image. The artist statement follows Brian’s own account: his mother’s love of ikebana and historical dramas, his concern about industrialization and faith, and the court roles, flowers, doors, sword, and disappearance used to express intrigue and assassination. These are his artistic interpretations, rather than identifications of specific historical people or universal claims about cultural symbolism.
