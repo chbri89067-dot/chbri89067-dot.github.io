@@ -187,6 +187,7 @@
     },
 
     startApproach: function () {
+      if (this.scene.components['mobile-window-secret']?.isHolding()) return;
       if (!this.ready || this.phase === 'approach' || this.phase === 'landing') return;
       this.phase = 'approach';
       this.solarSystem.setAttribute('visible', false);
@@ -216,6 +217,7 @@
 
     tick: function (time, delta) {
       if (!this.ready) return;
+      if (this.scene.components['mobile-window-secret']?.waitingForViewer) return;
       const dt = Math.min(delta / 1000, 0.05);
       if (this.awaitingCruise && this.flight.active && this.phase === 'inactive') {
         this.scene2Elapsed += dt;

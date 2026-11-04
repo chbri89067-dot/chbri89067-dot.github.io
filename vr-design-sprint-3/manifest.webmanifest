@@ -1,7 +1,7 @@
 {
-  "name": "Mars VR — phone viewer",
+  "name": "Earth to Mars \u2014 Mobile VR",
   "short_name": "Mars VR",
-  "start_url": "./?cardboard=1",
+  "start_url": "./mobile/",
   "display": "standalone",
   "orientation": "landscape",
   "background_color": "#090d16",

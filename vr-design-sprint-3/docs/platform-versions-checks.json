@@ -1,0 +1,19 @@
+{
+  "url": "http://localhost:8080/",
+  "checks": {
+    "two_explicit_versions_and_desktop_entry": true,
+    "computer_launch_gravity_and_wasd_preserved": true,
+    "desktop_keeps_four_window_clicks_and_original_shards": true,
+    "legacy_phone_url_routes_mobile_and_cruise_waits_for_setup": true,
+    "secret_is_a_subtle_glass_mark_without_a_button_face_or_label": true,
+    "looking_away_before_selection_does_not_crack_glass": true,
+    "one_continuous_gaze_completes_all_four_cracks_and_breaks_window": true,
+    "original_float_out_and_zero_gravity_preserved": true,
+    "mobile_window_route_still_reaches_landing_and_clear_mars_in_one_session": true,
+    "two_second_dwell_and_late_cruise_discovery_still_break_glass": true
+  },
+  "physical_iPhone_tested": false,
+  "sensors": "Synthetic orientation in phone-size browser QA",
+  "javascript_errors": [],
+  "http_errors": []
+}

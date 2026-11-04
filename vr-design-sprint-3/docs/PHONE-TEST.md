@@ -1,45 +1,31 @@
-# Test the complete mobile VR project
+# Mobile VR test
 
-No account is required. Full experience: https://chbri89067-dot.github.io/vr-design-sprint-3/?cardboard=1&v=ring-clear-mars-20261104-r2
+This is the **mobile** version. The separate computer version uses mouse and keyboard.
 
-## Start in Safari
+Mobile: https://chbri89067-dot.github.io/vr-design-sprint-3/mobile/?v=platforms-20261104
 
-1. Open the HTTPS link in Safari, turn the phone sideways and set media volume.
-2. Choose Selection hold: 0.5, 1 (default), 1.5 or 2 seconds. Eye spacing and field of view remain adjustable before entry.
-3. Tap Allow motion & start viewer and approve motion. Gently move the phone until readings arrive, then place it in the headset. This real setup gesture prepares motion and audio.
-4. Turn your head to aim the center reticle. Hold a target while the purple ring fills clockwise. It disappears and activates the item once. Looking away early cancels; looking away and back enables another selection. The larger bold HOLD TO SELECT label appears during the hold and disappears with the ring.
+Computer: https://chbri89067-dot.github.io/vr-design-sprint-3/desktop/?v=platforms-20261104
 
-## Try the scenes
+## Start
 
-Gaze at LAUNCH, then use GRAVITY in Scene 2. Scene 3's solar-system cruise and Scene 4's Mars approach now run automatically, followed by the purple LAND control. After touchdown, the final Mars view opens automatically.
+Open the mobile link in Safari, turn the phone sideways and set media volume. Choose Selection hold, default 1 second and adjustable from 0.5 to 2 seconds. Tap Allow motion & start viewer and approve motion before inserting the phone into the headset. Move it slightly until sensor readings arrive. Gaze selection starts after the settling delay.
 
-In Scene 3, try the Easter egg: gaze at the forward window four separate times, looking away between each activation. Jesse's cracks, shards and zero-gravity float-out run. Staying focused on the window counts once. Space movement is available through Menu after the float-out. The scene then proceeds toward Mars.
+Turn your head to aim the reticle. The opaque clockwise ring fills and selects once. Looking away early cancels/reset; ordinary controls require leaving and re-entering before another selection. Screen taps are blocked while the phone viewer is active. The initial Safari setup tap is still required.
 
-The existing SKIP ASCENT / CLOSE EYES console label offers a gaze-operated shortcut to landing; no closed-eye sensing is implemented.
+## Test the mobile glass Easter egg
 
-## Menu in Scenes 1–5 and the final Mars view
+Fast preview: https://chbri89067-dot.github.io/vr-design-sprint-3/mobile/?scene=3&v=platforms-20261104
 
-In Scenes 1–5, look down in the original forward direction for Menu. Hold it to display the existing options; hold Hide Menu to close them. Their behavior and dwell timing are unchanged.
+Scene 3 waits while the setup panel is open, so permission time does not use up the cruise. Look near the upper-right edge of the forward glass for a small pale hairline mark. Hold the center reticle on that mark until selection completes. One completed hold starts four crack stages automatically and the window breaks, followed by the original 2.4-second float-out. Do not look away and back four times. There is no break button in the scene.
 
-The final scene removes walking destinations, Stop/Return, Menu, Explore, phone-action containers and navigation captions from the DOM. They occupy no space and cannot receive clicks, hover or focus. The Mars world and existing habitat markers remain. Safari setup is still shown before entering the phone viewer when opening the final-scene preview directly.
+Try looking away before the ring fills: the glass should remain intact. Try a 2-second selection hold. The sequence should still complete if discovered near the end of cruise. After the escape, the journey should continue through Mars approach and landing in the same viewer session.
 
-The iPhone/Cardboard path tracks head rotation, not physical position. Moving or walking forward/backward does not move the character. With the walking controls removed, phone users have a stationary look-around view. Existing desktop WASD remains unchanged. No replacement movement gesture has been added.
+The computer version retains four ordinary mouse clicks on the window. It does not contain the mobile stress-mark target.
 
-The ring uses an opaque white fill, a 70%-opaque purple track and an opaque black backing. The stroke is 1.5 times its previous width. Its 0.5–2-second configurable timing, clockwise fill, leave-to-cancel/reset, once-per-hover selection and confirmation behavior are preserved.
+## Other scenes
 
-## Fast tests and download
+Launch, Scene 2 gravity, approach and landing retain their controls and original audio. Menu / Hide Menu remain in earlier mobile scenes. The final Mars scene removes walking/navigation overlays and opens automatically. Phone/Cardboard tracks orientation, not physical movement forward or backward. Computer users retain WASD movement.
 
-- Scene 3 and window: https://chbri89067-dot.github.io/vr-design-sprint-3/?scene=3&cardboard=1&v=ring-clear-mars-20261104-r2
-- Scene 4: https://chbri89067-dot.github.io/vr-design-sprint-3/?scene=4&cardboard=1&v=ring-clear-mars-20261104-r2
-- Mars view: https://chbri89067-dot.github.io/vr-design-sprint-3/?scene=6&cardboard=1&v=ring-clear-mars-20261104-r2
-- Complete project: https://chbri89067-dot.github.io/vr-design-sprint-3/VR-Design-Sprint-3-Mobile-Complete.zip?v=ring-clear-mars-20261104-r2
+## Evidence and limits
 
-The extracted package includes START-HERE.html and READ-ME-FIRST.txt. To run on a computer, use Node.js 18+ and Start-VR.cmd or npm start. Use the public HTTPS link for the phone test.
-
-## Record your physical test
-
-After exiting by gaze, expand Record my phone test. Tick only what you observed and download the record. The report is stored locally, not uploaded. Check stereo alignment, head turning, one-second ring, cancel/re-enter behavior, Menu/Hide Menu in Scenes 1–5, gravity, cruise/approach, window escape, landing audio and the clear final Mars view.
-
-If motion stops, keep Safari visible, rotate to landscape and retry. If sound is absent, raise media volume, exit and tap Start again. If the two views do not merge, exit and adjust eye spacing/FOV and headset alignment.
-
-Browser QA uses synthetic orientation and does not validate physical iPhone SE/iOS 26.5/Cardboard behavior. The generic stereo profile has no viewer-QR calibration or lens-distortion correction. Safari setup still requires the initial permission/audio gesture.
+Browser results are in platform-versions-checks.json. Motion events were simulated; actual iPhone SE/iOS 26.5/headset optics, latency and performance remain unverified. The generic stereo profile has no viewer-specific lens calibration. After exiting in an earlier scene, the setup panel can download a local test report; tick only what was observed on the physical phone.

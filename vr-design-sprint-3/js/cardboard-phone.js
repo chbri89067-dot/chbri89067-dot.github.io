@@ -42,7 +42,7 @@
       this.onMissionNavigation=()=>this.updateNavigationLabels();this.el.addEventListener('scene5-start',this.onMissionNavigation);this.el.addEventListener('scene6-start',this.onMissionNavigation);
       this.ready=true;
       const query=new URLSearchParams(location.search);
-      if(query.has('cardboard')||AFRAME.utils.device.isMobile())this.showSetup();
+      if(window.VR_MODE==='mobile'||query.has('cardboard')||AFRAME.utils.device.isMobile())this.showSetup();
       this.diagnosticsTimer=setInterval(()=>this.updateStatus(),1000);
     },
     showSetup: function () {

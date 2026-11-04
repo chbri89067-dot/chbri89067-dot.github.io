@@ -1,3 +1,5 @@
+> Platform update: two explicit entry points are now maintained. Mobile uses one gaze on a subtle window stress mark to complete the break; computer preserves four clicks. See VERSIONS.md and platform-versions-checks.json.
+
 > Current revision: ring fill is 100% opaque, track is 70%, and strokes are 1.5 times wider on a black backing. Final-scene navigation/overlay DOM nodes are removed. Earlier scene behavior is retained. See TESTING.md and ring-clear-mars-checks.json for current evidence.
 
 # Jesse Scenes 3–4 and mobile interface integration

@@ -1,7 +1,7 @@
-# Current ring and final-view verification
+# Current verification
 
-Run npm test. All 14 tests include the original geometry/audio/scene preservation checks and an exact comparison of the dwell controller after removing only the new visual backing references. Its timing, progress direction, hover, cancellation, selection and confirmation logic remain byte-identical.
+npm run build generates mobile/index.html and desktop/index.html from experience.html. npm test runs 18 preservation/platform/behavior checks. These protect Jesse's cabin, launch/audio, planets and window effects, all original partner files/audio/geometry, the unchanged common dwell controller, correct generated platforms, and single-selection completion/cancellation of the mobile stress pulses.
 
-ring-clear-mars-checks.json records rendered material opacity, 1.5-times stroke width, black-backed contrast above 3:1, unchanged one-second clockwise behavior, leave/reset and one selection per hover, earlier-scene menu controls, landing handoff, actual removal of final-scene navigation/overlay DOM nodes across phone/desktop viewport sizes, retained world-marker confirmation and no JavaScript/HTTP errors.
+platform-versions-checks.json records actual browser QA. Computer: chooser entry, no phone panel, mouse launch, gravity key, WASD and the original four-click window break. Mobile: legacy phone routing, Scene 3 waiting for setup, one hidden non-button target, cancel before completion, one continuous gaze producing hits [1,2,3,4], original eight shards/escape, subsequent Mars landing/final view in one permission session, and successful late discovery at 2-second dwell.
 
-Phone sensor input is simulated. Physical iPhone/Cardboard testing is not performed. Phone orientation input changes rotation, not real-world forward/back position. Earlier six-scene and walking-interface reports are historical records of the previous UI.
+No JavaScript/HTTP errors occurred. Phone input was synthetic. Physical iPhone SE/iOS 26.5/Cardboard validation is still pending. Other older JSON files document previous versions and are retained as historical evidence.
