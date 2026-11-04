@@ -60,6 +60,7 @@
       const preview=new URLSearchParams(location.search).get('scene');
       if(preview==='5')this.prepareLanding(true);
       if(preview==='6'){this.configureMars();this.enterArrival(true);}
+      this.el.emit('mars-mission-ready',{},false);
     },
     say:function(title,description,head){
       this.flight.title.textContent=title;this.flight.description.textContent=description;
@@ -67,8 +68,8 @@
     },
     offerLanding:function(){
       if(this.phase!=='inactive')return;
-      this.phase='cruise-ready';this.panelLabel.setAttribute('value','CONTINUE TO MARS\nHOLD TO SELECT');this.panel.classList.add('clickable');
-      this.flight.description.textContent='Explore zero gravity, or select CONTINUE TO MARS on the left console to test the landing and arrival scenes.';
+      this.phase='cruise-ready';this.panelLabel.setAttribute('value','SKIP ASCENT\nHOLD / CLOSE EYES');this.panel.classList.add('clickable');
+      this.flight.description.textContent='Explore the outer-space cruise, or select SKIP ASCENT / CLOSE EYES on the left console to go directly to Mars landing.';
       this.el.emit('mars-landing-available',{fromScene:2,frames:[5,6]},false);
     },
     fadeTo:function(opacity){
@@ -150,7 +151,7 @@
       if(this.phase!=='arrival-ready'||this.transitioning)return false;
       this.phase='exploring';this.motion.locomotionEnabled=true;this.camera.setAttribute('wasd-controls',{enabled:true,acceleration:30,fly:false});
       this.explore.classList.remove('clickable');this.exploreLabel.setAttribute('value','EXPLORATION ACTIVE');this.exploreHideAt=performance.now()+1500;
-      this.say('06 / MARS EXPLORATION','Welcome to Mars! Look down toward the colony for WALK TO controls. Hold a destination to walk there; gaze at STOP WALKING to pause. Look up at the glowing habitat markers to inspect them.','LOOK DOWN / HOLD WALK TO PATH TO WALK');
+      this.say('06 / MARS EXPLORATION','Welcome to Mars! Look down and select Menu for WALK TO controls. Hold a destination to walk there; use STOP WALKING to pause. Select Hide Menu to clear the view.','LOOK DOWN / SELECT MENU TO WALK');
       this.flight.description.style.color='#38bdf8';this.el.emit('mars-exploration-start',{},false);return true;
     },
     tick:function(){

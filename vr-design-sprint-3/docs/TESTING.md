@@ -1,20 +1,9 @@
-# Integrated verification
+# Current verification
 
-## Source and asset checks
+Run npm test with Node.js 18 or later. The 13 tests cover the original cabin/launch, unchanged legacy source, four library sound hashes/licenses, seven partner originals, partner MP3, habitat/landing geometry, Jesse's Scene 3/4 wiring, and exact preservation of the new world geometry and cruise/escape/approach behavior except the documented lifecycle/UI adjustments.
 
-Eight npm tests protect the original cabin and launch synthesis, unloaded legacy launch.js, single A-Frame extension, four existing CC0 source hashes, all seven supplied partner files, the unchanged partner MP3, and original habitat/landing-terrain/exhaust shapes and dimensions. The cabin check allows only mission IDs and the already documented font/mug/gravity additions. The launch check allows only the existing prepared phone AudioContext expression.
+mobile-six-scenes-checks.json records the actual normal six-scene browser journey, gaze launch/engine, gravity, automatic cruise/approach, one stereo session and permission, landing audio and arrival. A separate Scene 3 preview checks four distinct gazes, no held-gaze repeat, eight shards and the original escape.
 
-## Browser checks
+mobile-interface-walk-checks.json records collapsed menus, disabled hidden targets, shared four-times-size heavier hint, clockwise hover ring, cancel/reset, one activation until leave, 0.5/1/2-second timing and clamping, gaze Menu/Hide Menu, actual outdoor movement to every habitat, stop/return, closed-menu stop, tracking/focus loss, phone tap blocking and gaze exit.
 
-See integrated-mars-checks.json for the current run. It uses the real A-Frame renderer in Edge, synthetic orientation on an emulated iPhone SE, and real gaze timers/touch events. It covers Scene 2 gravity and actual completion, gaze Continue, landing tap rejection, the partner audio settings/playback, real descent and touchdown timing, pad/floor alignment, preserved stereo session, automatic arrival, Explore, all three habitats, outdoor gaze navigation/recenter, served audio hash and per-sound credits. A fresh desktop context checks the original launch, direct Mars entry, pointer landing/Explore and WASD.
-
-Earlier browser-checks.json, button-checks.json and cardboard-phone-checks.json are retained as prior-stage evidence. Their scope and dates are recorded in those files.
-
-## Physical hardware still to test
-
-No physical iPhone SE, iOS 26.5 browser or Cardboard viewer was available to the automated runner. Confirm actual motion input, lens alignment, sound level, thermal behavior, sustained performance and gaze comfort on the target device. The viewer profile is generic stereo without QR calibration or lens correction. Browser success does not certify physical-headset behavior.
-
-
-## Outdoor gaze walking revision
-
-Run npm test for the original eight preservation checks. The supplemental browser run is recorded in mars-gaze-walk-checks.json: synthetic iPhone-size sensor input, gaze-only Explore/destinations/stop/return/exit, real continuous player movement to all three habitat approaches, no movement from a screen tap, one setup permission, fixed ship, unchanged ground height and interruption stops. Physical iPhone SE/iOS 26.5/Cardboard testing remains unperformed.
+These browser checks emulate a phone viewport with synthetic orientation, not Safari hardware or headset optics. Physical iPhone SE/iOS 26.5/Cardboard remains untested. Other older JSON evidence files are historical snapshots of earlier versions, not current timing/menu specifications.

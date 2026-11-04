@@ -1,79 +1,43 @@
-# iPhone SE / Cardboard-style viewer test
+# Test the complete mobile VR project
 
-Target supplied by Brian: iPhone SE with iOS 26.5. That exact phone/OS/headset combination has not been tested by the developer. Browser automation used an emulated SE-sized landscape viewport with simulated sensor events.
+No account is required. Full experience: https://chbri89067-dot.github.io/vr-design-sprint-3/?cardboard=1&v=mobile-20261104
 
-Phone link: https://chbri89067-dot.github.io/vr-design-sprint-3/?cardboard=1
+## Start in Safari
 
-The phone demo is hosted on GitHub Pages and needs no account or sign-in. Anyone with the link can open the demo. The group GitHub repository remains private. The localhost URL on your computer is not a phone-accessible HTTPS link.
+1. Open the HTTPS link in Safari, turn the phone sideways and set media volume.
+2. Choose Selection hold: 0.5, 1 (default), 1.5 or 2 seconds. Eye spacing and field of view remain adjustable before entry.
+3. Tap Allow motion & start viewer and approve motion. Gently move the phone until readings arrive, then place it in the headset. This real setup gesture prepares motion and audio.
+4. Turn your head to aim the center reticle. Hold a target while the purple ring fills clockwise. It disappears and activates the item once. Looking away early cancels; looking away and back enables another selection. The larger bold HOLD TO SELECT label appears during the hold and disappears with the ring.
 
-## Start on the phone
+## Try the scenes
 
-1. Open the link in Safari, directly rather than inside another app's embedded browser. Keep the tab visible.
-2. Disable Portrait Orientation Lock and rotate the phone to landscape.
-3. For more screen area, use Safari's Share menu → Add to Home Screen → Open as Web App, then reopen it from its icon. This is optional; availability of browser fullscreen varies, so the code does not depend on fullscreen succeeding.
-4. Start with the default 64 mm eye separation and 80° field of view. Tap **Allow motion & start viewer** and choose **Allow** in the motion prompt. Gently turn the phone until the view starts; no motion readings produces a message instead of silently entering a broken mode.
-5. Put the phone in the viewer, aligning the two screen halves with its lenses. Begin seated. Gaze input waits 3.5 seconds after entry to give time to position the phone.
-6. Look slightly down at the purple **LAUNCH** cylinder. Hold the reticle on it for 1.8 seconds. A purple progress ring fills while the head reticle stays on the control. Launch should start once, with Jesse's original engine sound.
-7. After the original launch completes, look at the right console's **GRAVITY** control. Hold for 1.8 seconds to turn it off. The player and cup rise. Look away, then look back and hold again to restore gravity.
-8. Turn around to find the phone-only cabin controls. Gaze at TO CONSOLE/AWAY/LEFT/RIGHT for a 0.3-unit step; RISE/LOWER adjusts height with gravity off; RETURN TO SEAT recenters; SOUND toggles Scene 2 audio; EXIT VIEWER returns to setup. Look away before repeating the same action. Physical head turning works; physical walking is not tracked by Cardboard.
+Gaze at LAUNCH, then use GRAVITY in Scene 2. Scene 3's solar-system cruise and Scene 4's Mars approach now run automatically, followed by the purple LAND control. After touchdown, gaze at EXPLORE MARS.
 
-For a faster gravity-only check, use the same link with **?scene=2&cardboard=1**.
+In Scene 3, try the Easter egg: gaze at the forward window four separate times, looking away between each activation. Jesse's cracks, shards and zero-gravity float-out run. Staying focused on the window counts once. Space movement is available through Menu after the float-out. The scene then proceeds toward Mars.
 
-## Record actual results for the professor
+The existing SKIP ASCENT / CLOSE EYES console label offers a gaze-operated shortcut to landing; no closed-eye sensing is implemented.
 
-After exiting, expand **Record my phone test**. Tick only the behaviors you actually observed on the real phone, then choose **Download my test record**. It records browser/version, viewport, motion permission, sensor counts, stereo frame counts, audio context state and your checkboxes. The record is stored locally in that browser and downloaded on request; it is not sent to a server. Frame counts and sensor events do not, by themselves, prove lens alignment or a successful physical test.
+## Menu and walking
 
-Check: two views align through the lenses; head turns change the view; gaze launches once with sound; launch hands off; gravity toggles both ways; the cabin controls work; the session remains usable for several minutes without unacceptable heat or lag. Browser FPS is an on-device observation, not a guaranteed headset latency measurement.
+Look down in the original forward direction for Menu. Hold it to display options; hold Hide Menu to close them. Options are hidden by default and cannot be selected while closed. Menus collapse when the scene changes.
 
-## If it does not work
+After EXPLORE, Menu reveals Walk to Path, Alpha, Beta, Gamma, Return to Start and Stop Walking, plus Sound and Exit Viewer. Choose a destination and the virtual character walks along the central corridor to its approach point. Select Stop Walking to pause, or Return to Start to walk back. If you close the menu during walking, Stop Walking remains beside Menu. Stay seated while the virtual character moves.
 
-| Symptom | Next step |
-| --- | --- |
-| No motion prompt / no turning | Confirm HTTPS, Safari and a visible tab; retry motion permission. Reopen/reload the site if permission was denied. The setup diagnostics distinguishes permission from arriving sensor events. |
-| Only one view | Use **Phone headset** and the phone setup, rather than the normal A-Frame WebXR entry. |
-| Browser bars cover part of the view | Try the Home Screen web-app flow, then reopen in landscape. |
-| Two images do not merge | Exit and adjust eye separation/FOV, realign the phone, and check that the viewer fits the SE. This generic stereo prototype has no viewer-QR optical calibration or lens-distortion correction. Do not treat poor optical alignment as a passed test. |
-| No engine sound | Raise media volume, exit, and tap Start again to prepare audio before gaze. Scene 1 and Scene 2 have independent audio paths. |
-| Input stops | Turn the phone sideways and keep the page visible. Gaze pauses if the page hides, the phone turns upright or sensor readings stop. |
+In the ship and space, Menu provides direction steps, floating height, return to seat, sound and exit. Each uses the same dwell setting. Turning the phone/head continues to change the view in every scene. Screen taps do not select in-world buttons and two-finger walking is blocked during headset mode. Touch controls still work outside the viewer.
 
-## Implementation and limits
+## Fast tests and download
 
-The adaptation is an A-Frame component using the existing scene and renderer. It renders two eye-offset cameras; it is not a duplicated video or a second standalone renderer. A-Frame look-controls supplies phone orientation; existing raycasting and gaze-dwell activate the same launch and gravity controls. Native WebXR remains available for devices that support it; the phone path does not require an immersive WebXR session.
+- Scene 3 and window: https://chbri89067-dot.github.io/vr-design-sprint-3/?scene=3&cardboard=1&v=mobile-20261104
+- Scene 4: https://chbri89067-dot.github.io/vr-design-sprint-3/?scene=4&cardboard=1&v=mobile-20261104
+- Mars walking: https://chbri89067-dot.github.io/vr-design-sprint-3/?scene=6&cardboard=1&v=mobile-20261104
+- Complete project: https://chbri89067-dot.github.io/vr-design-sprint-3/VR-Design-Sprint-3-Mobile-Complete.zip?v=mobile-20261104
 
-The ship's dimensions, palette, materials and Scene 2 sound files/volumes are retained. The only edit inside Jesse's launch script is selecting the AudioContext prepared during the initial tap. Its two oscillators, frequencies, envelopes, launch timing and visual actions are unchanged. The preservation test normalizes only that one context-reuse expression before checking the original script hash.
+The extracted package includes START-HERE.html and READ-ME-FIRST.txt. To run on a computer, use Node.js 18+ and Start-VR.cmd or npm start. Use the public HTTPS link for the phone test.
 
-Automated evidence is in **cardboard-phone-checks.json**. Physical iPhone Safari, headset optics, thermal behavior, actual sensor latency and viewer-button compatibility remain unverified. Gaze selection deliberately works without depending on the viewer's physical button.
+## Record your physical test
 
-Primary references:
-- A-Frame 1.8 scene VR entry and render loop: https://github.com/aframevr/aframe/blob/v1.8.0/src/core/scene/a-scene.js
-- A-Frame motion permission / HTTPS: https://aframe.io/docs/1.7.0/components/device-orientation-permission-ui.html
-- A-Frame look-controls: https://github.com/aframevr/aframe/blob/v1.8.0/src/components/look-controls.js
-- Apple Home Screen web apps: https://support.apple.com/guide/iphone/iphea86e5236/ios
+After exiting by gaze, expand Record my phone test. Tick only what you observed and download the record. The report is stored locally, not uploaded. Check stereo alignment, head turning, one-second ring, cancel/re-enter behavior, Menu/Hide Menu, gravity, cruise/approach, window escape, landing audio, walking and gaze exit.
 
-## Hands-free headset input
+If motion stops, keep Safari visible, rotate to landscape and retry. Tracking loss, leaving landscape, hiding the page or exiting the viewer stops automated walking. When readings return, choose a destination again. If sound is absent, raise media volume, exit and tap Start again. If the two views do not merge, exit and adjust eye spacing/FOV and headset alignment.
 
-The interaction method is head-gaze dwell: turn your head to aim the center reticle, hold it still on a control for 1.8 seconds, then look away before selecting that control again. The purple progress ring shows selection progress. Launch, gravity, cabin steps, floating height, recenter, sound and exit all support this method. Phone screen taps are blocked as in-world selections during headset mode.
-
-Safari still requires a user gesture to request motion permission and prepare audio. Tap Start and approve the system prompt before putting on the viewer. This setup requirement cannot be replaced with a webpage gaze event. The mode uses orientation sensing rather than eye tracking.
-
-Canonical demo: https://chbri89067-dot.github.io/vr-design-sprint-3/?cardboard=1
-Download: https://chbri89067-dot.github.io/vr-design-sprint-3/VR-Design-Sprint-3-Integrated.zip
-
-## Partner Mars landing and arrival
-
-After Scene 2 finishes, look at CONTINUE TO MARS on the left console. Then gaze at LAND on the original purple cylinder. After touchdown and settling, select EXPLORE on the Mars path. After selecting EXPLORE, look down toward the colony (the direction you first face on arrival). Hold WALK TO PATH, WALK TO ALPHA, WALK TO BETA or WALK TO GAMMA for 1.8 seconds. The character walks automatically along the central route, then stops outside the selected habitat. Hold STOP WALKING to pause anywhere, or RETURN TO START to walk back to the path beside the landing pad. You can turn your head freely during travel; looking away does not cancel the selected walk. Look up at the glowing habitat markers to inspect them. Look behind you for small manual steps, instant RETURN TO START, SOUND and EXIT. Outdoor navigation leaves the ship on its landing pad.
-
-Fast previews:
-- Landing: https://chbri89067-dot.github.io/vr-design-sprint-3/?scene=5&cardboard=1
-- Arrival: https://chbri89067-dot.github.io/vr-design-sprint-3/?scene=6&cardboard=1
-
-The partner landing MP3 is unchanged. It uses its original non-looping positional playback and volume setting. The per-sound credits page identifies the supplied file separately.
-
-
-## Gaze walking on Mars
-
-The six purple/cyan walking controls appear only after EXPLORE. They follow your position, keeping the colony's original forward direction; they do not follow head rotation. Turn back toward that direction and lower your gaze to find them. The destination activates once per gaze, travels at up to 1.6 metres per second, and stops automatically at the path or a habitat entrance. Movement does not turn your view or move the ship. Stay physically seated while the virtual character walks.
-
-STOP WALKING works by the same 1.8-second gaze selection. Losing phone motion readings for two seconds, hiding the page, leaving landscape mode or exiting the viewer stops the walk. When tracking returns, choose a destination again to resume. Manual movement cancels an automated route. Touch selection and two-finger walking are blocked during phone viewer mode; touch controls remain available outside it.
-
-The walking route uses a clear central corridor and approach points outside the original habitat models. This is route navigation, not a general collision/physics simulation. The partner's models and audio are unchanged. Browser checks cover all destinations, gaze stop/return, movement of only the player, ground height, tap blocking and interruption handling. They do not establish real iPhone/Cardboard performance.
+Browser QA uses synthetic orientation and does not validate physical iPhone SE/iOS 26.5/Cardboard behavior. The generic stereo profile has no viewer-QR calibration or lens-distortion correction. Safari setup still requires the initial permission/audio gesture.

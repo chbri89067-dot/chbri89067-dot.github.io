@@ -1,46 +1,42 @@
-# Earth to Mars — integrated A-Frame scenes
+# Earth to Mars — complete mobile VR project
 
-The project combines Jesse's original launch, Brian's stratosphere-to-space/gravity scene, and the partner's Mars landing and exploration package. It uses one A-Frame 1.8.0 scene, camera and renderer through all four implemented frames, including the phone/Cardboard-style stereo session.
+A-Frame 1.8.0 with all six scenes in one scene, camera and renderer. This mobile update is based on Jesse Carr's main commit ac8055ea9032ce1c8aae84c5c09b173a1787dcf0, including his solar-system cruise, Mars approach and four-selection window-breaking Easter egg.
 
-Repository base: main at bf7f762feb929ae53e6c2d0f2651a14e99bfb1de. All 39 files in that commit were verified before integration. The partner package is preserved under reference/partner-original/VR; its Scene 1 is a reference and does not replace Jesse's launch.
+## Phone test
 
-## Run
+Open https://chbri89067-dot.github.io/vr-design-sprint-3/?cardboard=1&v=mobile-20261104 in Safari. Turn the phone sideways, tap Allow motion & start viewer and approve motion before placing it in the headset. This initial gesture prepares Safari motion and audio. After setup, turn your head to aim the center reticle and hold a target for one second. A purple outline appears, fills clockwise, disappears and selects once. Look away before selecting that target again. Looking away early cancels and resets the fill.
 
-With Node.js 18 or later, run **npm start** or double-click **Start-VR.cmd** on Windows. No package installation is needed. Open http://localhost:8080/ on the computer. For an iPhone, use the HTTPS GitHub Pages demo: https://chbri89067-dot.github.io/vr-design-sprint-3/?cardboard=1
+Set Selection hold to 0.5, 1, 1.5 or 2 seconds before starting. Developers can set gaze-dwell.duration in milliseconds; it is clamped to 500–2000. The ?dwell=0.5 through ?dwell=2 query option supports intermediate values. A shared bold HOLD TO SELECT label is at least four times the previous rendered size and disappears on selection or cancellation.
 
-Direct previews: **index.html?scene=2**, **index.html?scene=5**, **index.html?scene=6**. Add **&cardboard=1** for phone setup. The scene5.html and scene6.html entry files redirect to the corresponding integrated preview and retain query options.
+## Journey
 
-## Experience
+1. Gaze at the purple LAUNCH control. Jesse's launch and original engine synthesis run.
+2. Scene 2 shows the stratosphere-to-space transition. Gaze at GRAVITY to float or settle.
+3. Jesse's Scene 3 shows the moving solar-system cruise for 14 seconds. Optional: gaze at the forward window four separate times, looking away between selections. His cracks, eight shards and 2.4-second zero-gravity float-out run. The subsequent cruise retains his timing and movement.
+4. Scene 4 advances and enlarges Mars over 16 seconds, then automatically prepares the landing.
+5. Gaze at LAND. The partner's unchanged recording and original 12-second descent, 12.5-second touchdown and three-second settling run.
+6. Gaze at EXPLORE MARS. Look down toward the original forward direction and select Menu, then Walk to Path / Alpha / Beta / Gamma or Return to Start. The character walks automatically and stops outside each habitat. Gaze at Stop Walking to pause.
 
-1. Select the purple LAUNCH control for Jesse's original launch.
-2. Scene 2 unlocks GRAVITY. The player and loose cup float independently of the ship. After its 24-second transition, the left console offers CONTINUE TO MARS.
-3. Select CONTINUE TO MARS, then select the purple LAND control. The partner's original landing recording and 12-second descent run. Touchdown is announced after 12.5 seconds, followed by his 3-second settling period.
-4. Frame 6 opens on the partner's path, with the landed ship behind the player. Select EXPLORE and the Alpha, Beta and Gamma habitat markers. Desktop walking uses his acceleration setting of 30; phone users look down toward the colony for WALK TO PATH / ALPHA / BETA / GAMMA, RETURN TO START and STOP WALKING. Holding a destination starts a smooth walk to its entrance.
+The existing SKIP ASCENT / HOLD / CLOSE EYES console label is Jesse's optional shortcut to landing. Gaze selects it; the phone does not detect closed eyes.
 
-The direct Scene 2 → Frame 5 control is the testing bridge Brian selected because Frames 3–4 are not yet in the repository. The scene4-complete event also prepares landing, so those scenes can connect later.
+## Menu
 
-## Controls
+The menu starts collapsed. Gaze at Menu to show the options, then Hide Menu to collapse them. The same button stays in place and requires look-away before another selection. Closed options are removed from raycasting. Cabin/space movement, floating height, recenter, sound and exit appear in the cabin menu. Mars shows walking destinations plus sound and exit. If the menu is hidden while walking, a separate Stop Walking control remains beside Menu. Major scene changes collapse the menu.
 
-Desktop: drag to look, click the visible 3D controls, WASD/arrows to move, G for cabin gravity, Q/E for floating height, H to recenter, M for scene audio and V for optional gaze dwell. Touch mode keeps two-finger movement outside the viewer.
+The menu follows your position and stays in the world's original forward direction, so you can turn your head to target every option. It does not lock the off-center buttons to head rotation. Screen selection and two-finger walking are blocked in phone viewer mode. Outside the viewer, desktop drag/click/WASD and touch movement remain. V toggles desktop gaze mode.
 
-Phone headset: first tap Start and approve motion access in Safari. Then use head-gaze dwell: aim the center reticle and hold for 1.8 seconds until the purple ring fills. Screen taps do not select controls during viewer mode. Launch, gravity, Continue, Land, Explore, habitat markers, navigation and exit support gaze. No second page load or permission request is needed between the scenes. Cardboard tracks head turning rather than physical walking or eye movement.
+## Run locally
 
-Cabin walking retains Jesse's original bounds. Mars walking expands to the colony area; RETURN TO START recenters outdoors. Floating height controls are hidden outdoors. The 6 × 6 cabin, ceiling, desk, walls, pillars, armrests, lights and mug retain their original dimensions and palette. The original left panel and hero cylinder are reused with changing mission labels.
+Install Node.js 18 or later, then double-click Start-VR.cmd on Windows or run npm start. No dependency installation is needed. Open http://localhost:8080/ on the computer. For iPhone motion use the HTTPS public link; opening index.html in Files does not provide the complete sensor setup.
 
-## Partner preservation and adaptations
+Direct previews: ?scene=2, ?scene=3, ?scene=4, ?scene=5 and ?scene=6. Append &cardboard=1 for phone setup. scene3.html through scene6.html redirect to the corresponding integrated scene.
 
-All seven supplied files are preserved unchanged under reference/. The three habitat models, landing terrain, exhaust geometry, path and landing pad retain their shapes and dimensions. Cyan accents are normalized from #00e5ff to Jesse's #38bdf8. A single outdoor hill moves from x=-25 to x=-40 so it does not hide Habitat Gamma; its shape and size are unchanged. The partner's alternate cockpit is replaced by the existing canonical ship. The pad remains 10 × 10 and the ship lands fully inside it, with its floor aligned to the pad top.
+## Preservation and code
 
-The Mars planet image URL referenced by the partner returns 404 and no texture was included. A local procedural surface in his rust colors supplies that missing asset. The existing star field and local font keep the runtime independent of CDNs.
+Jesse's 6 × 6 ship, cabin layout, palette, models, launch synthesis, solar-system geometry, Mars-approach geometry, cruise/approach timings, cracks, shards and float-out remain. Only two small lifecycle corrections are made to scene34.js: the window is not selectable before cruise, and the gravity label agrees with the zero-gravity state. The partner's seven source files remain under reference/partner-original/VR and his landing MP3 is byte-identical. No sounds or music were added or edited.
 
-## Audio
+js/scene34.js owns Jesse's Scenes 3–4. js/vr-interface.js owns Menu/Hide Menu and heavier shared hint rendering. js/scene2.js owns the single gaze dwell controller, launch-to-space transition and independent player motion. js/cardboard-phone.js adapts the existing renderer for stereo and prepares motion/audio. js/mars-mission.js and js/mars-walk.js retain landing and outdoor walking.
 
-Jesse's launch synthesis and the four Scene 2 library recordings retain their existing parameters/files. The partner's liftoff.mp3 is copied unchanged to assets/audio/partner-liftoff.mp3. Its SHA-256 is 621bd3440459f5f9281017f9a4bf5b32e2cdc46ea185163b61eb2e5f71007f13. Landing uses his volume 1, non-looping positional playback with the original attenuation defaults and handoff stop. User mute is an explicit volume override. No new exploration soundtrack or effects were added.
+credits.html contains each sound's usage, preview, source and license information. The supplied partner MP3 has no creator/license in its original package, and remains identified accordingly.
 
-The archive misspells the folder as assests, while the original HTML requests assets. The runtime fixes that path. The partner did not include creator/license information for the MP3; it is identified as supplied audio rather than labeled CC0. See **credits.html** for each runtime sound's source, usage, playable preview and download, including the partner recording.
-
-## Project layout and verification
-
-js/mars-mission.js owns the Frame 5/6 state transitions and partner interactions. js/scene2.js keeps the original scene and adds outdoor bounds to cabin-motion. js/cardboard-phone.js keeps the stereo renderer adapter and cabin gaze navigation. js/mars-walk.js adds gaze-selected outdoor walking routes, stop, return, and tracking/focus-loss stops. index.html contains the preserved cabin and imported Mars geometry. assets/audio/partner-source.json records the supplied audio. docs/PARTNER-INTEGRATION.md explains the adaptation and event contract.
-
-Run **npm test**. The eight checks protect Jesse's cabin/launch, old unloaded launch.js, existing audio, all original partner files, the unchanged partner MP3, and the partner habitat/landing/effect geometries. docs/integrated-mars-checks.json records the integrated browser checks. docs/mars-gaze-walk-checks.json records the added walking checks. Phone sensors are simulated in browser QA; the supplied iPhone SE/iOS 26.5 and physical viewer still require real-device validation. The stereo profile has no viewer-specific QR lens calibration or lens correction.
+Run npm test: 13 checks protect Jesse's and the partner's source assets, geometry, audio and scene wiring. Current simulated-phone browser results are docs/mobile-six-scenes-checks.json and docs/mobile-interface-walk-checks.json. Physical iPhone SE/iOS 26.5/Cardboard optics, motion latency and performance still require your real device. The stereo profile has no viewer-specific lens calibration.

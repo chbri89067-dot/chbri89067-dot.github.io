@@ -36,6 +36,9 @@
       $('phone-export').addEventListener('click',()=>this.downloadReport());
       $('phone-checks').addEventListener('change',()=>this.saveReport());
       this.buildActions();
+      const hold=Number(new URLSearchParams(location.search).get('dwell'));
+      if(hold>=.5&&hold<=2){this.reticle.setAttribute('gaze-dwell','duration',hold*1000);const option=new Option(hold+' seconds',String(hold*1000),true,true);$('phone-dwell').add(option);}
+      $('phone-dwell').addEventListener('change',()=>this.reticle.setAttribute('gaze-dwell','duration',Number($('phone-dwell').value)));
       this.onMissionNavigation=()=>this.updateNavigationLabels();this.el.addEventListener('scene5-start',this.onMissionNavigation);this.el.addEventListener('scene6-start',this.onMissionNavigation);
       this.ready=true;
       const query=new URLSearchParams(location.search);
@@ -92,8 +95,9 @@
       this.oldPixelRatio=this.renderer.getPixelRatio();this.renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));
       this.oldTouch=this.camera.getAttribute('look-controls').touchEnabled;
       this.camera.setAttribute('look-controls','touchEnabled',false);
-      this.active=true;this.enteredAt=performance.now();this.frames=0;this.frameTimes=[];this.actions.object3D.visible=true;
-      this.actions.querySelectorAll('[data-phone-action]').forEach(el=>el.classList.add('clickable'));
+      this.active=true;this.enteredAt=performance.now();this.frames=0;this.frameTimes=[];this.actions.object3D.visible=false;
+      this.actions.querySelectorAll('[data-phone-action]').forEach(el=>el.classList.remove('clickable'));
+      this.motion.clear();this.player.components['vr-menu']?.setOpen(false);
       document.body.classList.add('cardboard-active');$('phone-setup').hidden=true;
       this.selector.sync();this.el.resize();this.refreshPause();this.updateNavigationLabels();
       const scene=this.el.components['scene-two'];scene.unlockAudio();
@@ -142,6 +146,7 @@
       if(!this.actions)return;const outside=this.motion.environment==='mars';
       for(const [action,label] of [['forward',outside?'FORWARD':'TO CONSOLE'],['back',outside?'BACK':'AWAY'],['seat',outside?'RETURN TO START':'RETURN TO SEAT']])this.actions.querySelector('[data-phone-action="'+action+'"] a-text').setAttribute('value',label);
       for(const action of ['up','down']){const button=this.actions.querySelector('[data-phone-action="'+action+'"]');button.setAttribute('visible',!outside);button.classList.toggle('clickable',this.active&&!outside);}
+      this.player.components['vr-menu']?.sync(true);
     },
     action: function (action) {
       if(!this.active||this.paused)return;
@@ -174,7 +179,7 @@
     },
     report: function () {
       const checks={};$('phone-checks').querySelectorAll('input').forEach(input=>checks[input.name]=input.checked);
-      return {at:new Date().toISOString(),userAgent:navigator.userAgent,secureContext:isSecureContext,viewport:[innerWidth,innerHeight],devicePixelRatio,permission:this.permission,orientationSamples:this.samples,stereoFrames:this.frames,eyeSeparation:this.eyeSeparation||null,perEyeFov:this.fov||null,mode:this.preview?'mouse-stereo-preview':'phone-sensors',interaction:'head-gaze-dwell',screenTapSelection:false,active:this.active,launchAudioState:window.marsPhoneAudioContext?.state||'not prepared',selfReportedChecks:checks,hardwareVerifiedByAutomation:false,note:'Sensor readings may be simulated in browser QA. Only the tester can confirm real iPhone/headset behavior. Generic stereo profile; no viewer QR calibration or lens-distortion correction.'};
+      return {at:new Date().toISOString(),userAgent:navigator.userAgent,secureContext:isSecureContext,viewport:[innerWidth,innerHeight],devicePixelRatio,permission:this.permission,orientationSamples:this.samples,stereoFrames:this.frames,eyeSeparation:this.eyeSeparation||null,perEyeFov:this.fov||null,mode:this.preview?'mouse-stereo-preview':'phone-sensors',interaction:'head-gaze-dwell',dwellMilliseconds:this.reticle.components['gaze-dwell'].data.duration,screenTapSelection:false,active:this.active,launchAudioState:window.marsPhoneAudioContext?.state||'not prepared',selfReportedChecks:checks,hardwareVerifiedByAutomation:false,note:'Sensor readings may be simulated in browser QA. Only the tester can confirm real iPhone/headset behavior. Generic stereo profile; no viewer QR calibration or lens-distortion correction.'};
     },
     saveReport: function () {try{localStorage.setItem('mars-cardboard-test',JSON.stringify(this.report()));}catch{}},
     downloadReport: function () {this.saveReport();const blob=new Blob([JSON.stringify(this.report(),null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Mars-VR-phone-test.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);},

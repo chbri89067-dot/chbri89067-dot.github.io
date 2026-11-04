@@ -1,0 +1,205 @@
+{
+  "url": "http://localhost:8080/",
+  "checks": {
+    "walking_hidden_before_explore": true,
+    "menu_starts_collapsed_with_hidden_targets_disabled": true,
+    "default_dwell_is_one_second": true,
+    "hover_shows_outline_clockwise_partial_ring_and_hint": true,
+    "look_away_cancels_and_resets_without_selection": true,
+    "shared_bold_hint_at_least_four_times_original_size": true,
+    "selection_fires_once_and_feedback_disappears": true,
+    "configurable_half_second_dwell": true,
+    "configurable_two_second_dwell": true,
+    "dwell_clamped_to_allowed_range": true,
+    "six_gaze_walking_controls_after_menu_open": true,
+    "screen_tap_does_not_start_walk": true,
+    "gaze_starts_actual_continuous_player_movement": true,
+    "gaze_stop_freezes_player": true,
+    "hide_menu_removes_all_options_and_hit_targets": true,
+    "menu_reopens_by_gaze": true,
+    "gaze_walk_reaches_alpha_entrance_outside_building": true,
+    "stop_remains_available_while_menu_is_hidden": true,
+    "held_gaze_does_not_repeat_walk": true,
+    "stale_motion_tracking_stops_walking": true,
+    "gaze_walk_reaches_beta": true,
+    "gaze_walk_reaches_gamma": true,
+    "gaze_return_reaches_original_mars_start": true,
+    "ship_stays_fixed_and_no_additional_permission_or_screen_tap": true,
+    "focus_loss_stops_walking": true,
+    "gaze_exit_still_works": true
+  },
+  "physical_iPhone_tested": false,
+  "sensors": "Synthetic orientation; browser QA is not a physical iPhone or Cardboard test",
+  "hint_measurement": {
+    "old": [
+      0.17708969148582676,
+      0.021462566776576437,
+      0
+    ],
+    "current": [
+      2.220446049250313e-16,
+      0.08865026710630586,
+      0.711158765943307
+    ],
+    "boldCopies": 4,
+    "width": "2.0"
+  },
+  "javascript_errors": [],
+  "http_errors": [],
+  "arrival_positions": {
+    "alpha": [
+      -7.987770221125039,
+      1.6,
+      -13.999992641097165
+    ],
+    "beta": [
+      7.989298155053706,
+      1.6,
+      -24.99999295277238
+    ],
+    "gamma": [
+      0.00001360855769001188,
+      1.6,
+      -37.98704299595177
+    ],
+    "returned": [
+      4.315233112754625e-9,
+      1.655,
+      -1.511569932663635
+    ]
+  },
+  "events": [
+    {
+      "name": "mars-walk-start",
+      "destination": "path",
+      "route": [
+        {
+          "x": 0,
+          "z": -9
+        }
+      ],
+      "speed": 1.6
+    },
+    {
+      "name": "mars-walk-start",
+      "destination": "alpha",
+      "route": [
+        {
+          "x": 0,
+          "z": -14
+        },
+        {
+          "x": -8,
+          "z": -14
+        }
+      ],
+      "speed": 1.6
+    },
+    {
+      "name": "mars-walk-arrived",
+      "destination": "alpha",
+      "distance": 16.340352179140115
+    },
+    {
+      "name": "mars-walk-start",
+      "destination": "path",
+      "route": [
+        {
+          "x": 0,
+          "z": -13.999992641097165
+        },
+        {
+          "x": 0,
+          "z": -9
+        }
+      ],
+      "speed": 1.6
+    },
+    {
+      "name": "mars-walk-start",
+      "destination": "beta",
+      "route": [
+        {
+          "x": 0,
+          "z": -13.999992641097165
+        },
+        {
+          "x": 0,
+          "z": -25
+        },
+        {
+          "x": 8,
+          "z": -25
+        }
+      ],
+      "speed": 1.6
+    },
+    {
+      "name": "mars-walk-start",
+      "destination": "beta",
+      "route": [
+        {
+          "x": 0,
+          "z": -25
+        },
+        {
+          "x": 8,
+          "z": -25
+        }
+      ],
+      "speed": 1.6
+    },
+    {
+      "name": "mars-walk-arrived",
+      "destination": "beta",
+      "distance": 16.88212286227266
+    },
+    {
+      "name": "mars-walk-start",
+      "destination": "gamma",
+      "route": [
+        {
+          "x": 0,
+          "z": -24.99999295277238
+        },
+        {
+          "x": 0,
+          "z": -38
+        }
+      ],
+      "speed": 1.6
+    },
+    {
+      "name": "mars-walk-arrived",
+      "destination": "gamma",
+      "distance": 20.962701638110143
+    },
+    {
+      "name": "mars-walk-start",
+      "destination": "start",
+      "route": [
+        {
+          "x": 0,
+          "z": -1.5
+        }
+      ],
+      "speed": 1.6
+    },
+    {
+      "name": "mars-walk-arrived",
+      "destination": "start",
+      "distance": 36.475473063290686
+    },
+    {
+      "name": "mars-walk-start",
+      "destination": "path",
+      "route": [
+        {
+          "x": 0,
+          "z": -9
+        }
+      ],
+      "speed": 1.6
+    }
+  ]
+}

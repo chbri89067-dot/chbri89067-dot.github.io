@@ -1,3 +1,5 @@
+> Historical integration record. The current six-scene sequence, one-second configurable dwell and collapsed Menu are documented in MOBILE-SCENES-3-4.md and PHONE-TEST.md. The former Scene 2-to-5 bridge is now only an optional shortcut.
+
 # Mars partner package integration
 
 Input ZIP: VR-20261104T030209Z-1-001.zip. SHA-256: 4b18f378adfcf8f66cf10417609defd37451496f597fc9ecaddae6da8212586f.

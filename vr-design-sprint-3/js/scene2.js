@@ -105,9 +105,9 @@
       // Cabin bounds remain unchanged. Mars uses the partner's outdoor space.
       const rig=this.el.parentElement.object3D.position;
       for(const axis of ['x','z']){
-        const outside=this.environment==='mars';
+        const outside=this.environment==='mars',space=this.environment==='space';
         const total=this.el.object3D.position[axis]+camera.object3D.position[axis]+(outside?rig[axis]:0);
-        const bounded=outside?clamp(total,axis==='x'?-55:-70,axis==='x'?55:15):clamp(total,-2.45,2.45);
+        const bounded=outside?clamp(total,axis==='x'?-55:-70,axis==='x'?55:15):space?clamp(total,axis==='x'?-55:-100,axis==='x'?55:15):clamp(total,-2.45,2.45);
         this.el.object3D.position[axis]+=bounded-total;
       }
       if(this.environment==='mars'){
@@ -122,18 +122,46 @@
   // Uses the original A-Frame reticle ray. Also starts when gaze mode is enabled
   // while already hovering a target; one activation until the gaze leaves it.
   AFRAME.registerComponent('gaze-dwell', {
-    schema:{enabled:{default:false},duration:{default:1800}},
-    init:function(){this.target=null;this.waited=0;this.fired=false;this.baseScale=this.el.object3D.scale.clone();this.ring=document.querySelector('#dwell-progress');this.hint=document.querySelector('#dwell-hint');this.lastArc=-1;},
-    tick:function(time,delta){
-      const ray=this.el.components.raycaster,scene=this.el.sceneEl.components['scene-two'];
-      const mission=this.el.sceneEl.components['mars-mission'];
-      const target=this.data.enabled&&ray&&!mission?.transitioning?ray.intersectedEls.find(e=>e.classList.contains('clickable')&&!(e.id==='gravity-btn'&&!scene.active)):null;
-      if(target!==this.target){this.target=target;this.waited=0;this.fired=false;}
-      if(target&&!this.fired){this.waited+=Math.min(delta,100);if(this.waited>=this.data.duration){this.fired=true;target.emit('click',{cursorEl:this.el,inputMethod:'head-gaze-dwell'},true);}}
-      const progress=target&&!this.fired?clamp(this.waited/this.data.duration,0,1):0;this.el.object3D.scale.copy(this.baseScale).multiplyScalar(1+progress*.3);
-      if(this.ring){this.ring.setAttribute('visible',progress>0);const arc=Math.round(progress*360/6)*6;if(arc!==this.lastArc){this.ring.setAttribute('geometry','thetaLength',Math.max(1,arc));this.lastArc=arc;}}
-      if(this.hint)this.hint.setAttribute('visible',progress>0);
-    }
+    schema:{enabled:{default:false},duration:{type:'number',default:1000}},
+    init:function(){
+      this.target=null;this.waited=0;this.fired=false;this.baseScale=this.el.object3D.scale.clone();
+      this.ring=document.querySelector('#dwell-progress');this.outline=document.querySelector('#dwell-outline');this.hint=document.querySelector('#dwell-hint');this.lastArc=-1;
+      this.feedbackLayers=[];
+      for(const [node,order] of [[this.outline,1002],[this.ring,1003],[this.el,1004]])if(node){
+        const apply=()=>{const mesh=node.getObject3D('mesh');if(mesh){mesh.renderOrder=order;mesh.material.depthTest=false;mesh.material.depthWrite=false;}};
+        node.addEventListener('object3dset',apply);apply();this.feedbackLayers.push([node,apply]);
+      }
+    },
+    update:function(){this.data.duration=clamp(Number(this.data.duration)||1000,500,2000);},
+    eligible:function(el){
+      if(!el.isConnected||!el.classList.contains('clickable'))return false;
+      for(let node=el.object3D;node;node=node.parent)if(!node.visible)return false;
+      const flight=this.el.sceneEl.components['scene-two'];
+      if(el.id==='gravity-btn'&&!flight.active)return false;
+      if(el.id==='ship-window'&&document.querySelector('#scene34-controller')?.components['scene-three-four']?.phase!=='cruise')return false;
+      return true;
+    },
+    tick:function(time){
+      const scene=this.el.sceneEl,ray=this.el.components.raycaster,mission=scene.components['mars-mission'],phone=scene.components['cardboard-phone'];
+      const tracked=!phone?.active||!phone.paused&&(phone.preview||performance.now()-phone.lastSample<2000);
+      const target=this.data.enabled&&!document.hidden&&tracked&&ray&&!mission?.transitioning?ray.intersectedEls.find(el=>this.eligible(el)):null;
+      if(target!==this.target){this.target=target;this.enteredAt=time;this.waited=0;this.fired=false;}
+      if(target&&!this.fired){
+        this.waited=Math.max(0,time-this.enteredAt);
+        if(this.waited>=this.data.duration){
+          this.fired=true;
+          // Hide feedback before the action changes the scene or menu state.
+          this.ring?.setAttribute('visible',false);this.outline?.setAttribute('visible',false);this.hint?.setAttribute('visible',false);
+          target.emit('click',{cursorEl:this.el,inputMethod:'head-gaze-dwell'},true);
+        }
+      }
+      const hovering=!!target&&!this.fired,progress=hovering?clamp(this.waited/this.data.duration,0,1):0;
+      this.el.object3D.scale.copy(this.baseScale).multiplyScalar(1+progress*.3);
+      this.ring?.setAttribute('visible',hovering);this.outline?.setAttribute('visible',hovering);this.hint?.setAttribute('visible',hovering);
+      const arc=hovering?Math.max(.01,progress*360):.01;
+      if(this.ring&&Math.abs(arc-this.lastArc)>.5){this.ring.setAttribute('geometry','thetaLength',arc);this.lastArc=arc;}
+    },
+    remove:function(){this.feedbackLayers.forEach(([node,fn])=>node.removeEventListener('object3dset',fn));}
   });
 
   // Use one A-Frame cursor: mouse/touch on the visible control, head ray in VR

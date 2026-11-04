@@ -1,0 +1,78 @@
+{
+  "url": "http://localhost:8080/",
+  "checks": {
+    "gaze_launch_and_original_engine_context": true,
+    "scene2_gaze_gravity_preserved": true,
+    "scene3_auto_cruise_and_scene4_approach": true,
+    "normal_all_scenes_handoff_keeps_one_viewer_and_permission": true,
+    "gaze_land_original_partner_audio_and_explore": true,
+    "window_hold_fires_once_until_gaze_leaves": true,
+    "four_distinct_gazes_break_original_window_and_make_shards": true,
+    "original_zero_g_escape_passes_cabin_bounds": true,
+    "space_navigation_menu_operates_by_gaze": true,
+    "partner_audio_byte_identical": true
+  },
+  "physical_iPhone_tested": false,
+  "sensor_input": "Synthetic deviceorientation; browser QA only",
+  "normal_events": [
+    {
+      "name": "scene2-start",
+      "at": 22009.600000023842,
+      "detail": {
+        "source": "scene1-ascent-complete",
+        "rigPosition": [
+          0,
+          2800,
+          -600
+        ]
+      }
+    },
+    {
+      "name": "scene3-start",
+      "at": 46007.89999997616,
+      "detail": {
+        "windowHitsRequired": 4
+      }
+    },
+    {
+      "name": "scene4-start",
+      "at": 60064.5,
+      "detail": {
+        "duration": 16000
+      }
+    },
+    {
+      "name": "scene4-complete",
+      "at": 76060.20000004768,
+      "detail": {
+        "nextScene": 5
+      }
+    },
+    {
+      "name": "scene5-start",
+      "at": 76308.60000002384,
+      "detail": {
+        "rigPosition": [
+          0,
+          35.45,
+          5
+        ]
+      }
+    },
+    {
+      "name": "scene6-start",
+      "at": 93384.60000002384,
+      "detail": {
+        "origin": "landing-pad",
+        "directPreview": false
+      }
+    }
+  ],
+  "escape": {
+    "z": -7,
+    "gravity": false,
+    "environment": "space"
+  },
+  "javascript_errors": [],
+  "http_errors": []
+}
