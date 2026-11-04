@@ -61,10 +61,19 @@ Download: https://chbri89067-dot.github.io/vr-design-sprint-3/VR-Design-Sprint-3
 
 ## Partner Mars landing and arrival
 
-After Scene 2 finishes, look at CONTINUE TO MARS on the left console. Then gaze at LAND on the original purple cylinder. After touchdown and settling, select EXPLORE on the Mars path. Select the glowing Alpha, Beta and Gamma habitat markers. Look behind you for FORWARD/BACK/LEFT/RIGHT, RETURN TO START, SOUND and EXIT. Outdoor navigation leaves the ship on its landing pad.
+After Scene 2 finishes, look at CONTINUE TO MARS on the left console. Then gaze at LAND on the original purple cylinder. After touchdown and settling, select EXPLORE on the Mars path. After selecting EXPLORE, look down toward the colony (the direction you first face on arrival). Hold WALK TO PATH, WALK TO ALPHA, WALK TO BETA or WALK TO GAMMA for 1.8 seconds. The character walks automatically along the central route, then stops outside the selected habitat. Hold STOP WALKING to pause anywhere, or RETURN TO START to walk back to the path beside the landing pad. You can turn your head freely during travel; looking away does not cancel the selected walk. Look up at the glowing habitat markers to inspect them. Look behind you for small manual steps, instant RETURN TO START, SOUND and EXIT. Outdoor navigation leaves the ship on its landing pad.
 
 Fast previews:
 - Landing: https://chbri89067-dot.github.io/vr-design-sprint-3/?scene=5&cardboard=1
 - Arrival: https://chbri89067-dot.github.io/vr-design-sprint-3/?scene=6&cardboard=1
 
 The partner landing MP3 is unchanged. It uses its original non-looping positional playback and volume setting. The per-sound credits page identifies the supplied file separately.
+
+
+## Gaze walking on Mars
+
+The six purple/cyan walking controls appear only after EXPLORE. They follow your position, keeping the colony's original forward direction; they do not follow head rotation. Turn back toward that direction and lower your gaze to find them. The destination activates once per gaze, travels at up to 1.6 metres per second, and stops automatically at the path or a habitat entrance. Movement does not turn your view or move the ship. Stay physically seated while the virtual character walks.
+
+STOP WALKING works by the same 1.8-second gaze selection. Losing phone motion readings for two seconds, hiding the page, leaving landscape mode or exiting the viewer stops the walk. When tracking returns, choose a destination again to resume. Manual movement cancels an automated route. Touch selection and two-finger walking are blocked during phone viewer mode; touch controls remain available outside it.
+
+The walking route uses a clear central corridor and approach points outside the original habitat models. This is route navigation, not a general collision/physics simulation. The partner's models and audio are unchanged. Browser checks cover all destinations, gaze stop/return, movement of only the player, ground height, tap blocking and interruption handling. They do not establish real iPhone/Cardboard performance.

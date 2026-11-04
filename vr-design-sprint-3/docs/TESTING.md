@@ -13,3 +13,8 @@ Earlier browser-checks.json, button-checks.json and cardboard-phone-checks.json 
 ## Physical hardware still to test
 
 No physical iPhone SE, iOS 26.5 browser or Cardboard viewer was available to the automated runner. Confirm actual motion input, lens alignment, sound level, thermal behavior, sustained performance and gaze comfort on the target device. The viewer profile is generic stereo without QR calibration or lens correction. Browser success does not certify physical-headset behavior.
+
+
+## Outdoor gaze walking revision
+
+Run npm test for the original eight preservation checks. The supplemental browser run is recorded in mars-gaze-walk-checks.json: synthetic iPhone-size sensor input, gaze-only Explore/destinations/stop/return/exit, real continuous player movement to all three habitat approaches, no movement from a screen tap, one setup permission, fixed ship, unchanged ground height and interruption stops. Physical iPhone SE/iOS 26.5/Cardboard testing remains unperformed.

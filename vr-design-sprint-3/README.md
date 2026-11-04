@@ -15,7 +15,7 @@ Direct previews: **index.html?scene=2**, **index.html?scene=5**, **index.html?sc
 1. Select the purple LAUNCH control for Jesse's original launch.
 2. Scene 2 unlocks GRAVITY. The player and loose cup float independently of the ship. After its 24-second transition, the left console offers CONTINUE TO MARS.
 3. Select CONTINUE TO MARS, then select the purple LAND control. The partner's original landing recording and 12-second descent run. Touchdown is announced after 12.5 seconds, followed by his 3-second settling period.
-4. Frame 6 opens on the partner's path, with the landed ship behind the player. Select EXPLORE and the Alpha, Beta and Gamma habitat markers. Desktop walking uses his acceleration setting of 30; phone users use the gaze navigation menu behind them.
+4. Frame 6 opens on the partner's path, with the landed ship behind the player. Select EXPLORE and the Alpha, Beta and Gamma habitat markers. Desktop walking uses his acceleration setting of 30; phone users look down toward the colony for WALK TO PATH / ALPHA / BETA / GAMMA, RETURN TO START and STOP WALKING. Holding a destination starts a smooth walk to its entrance.
 
 The direct Scene 2 → Frame 5 control is the testing bridge Brian selected because Frames 3–4 are not yet in the repository. The scene4-complete event also prepares landing, so those scenes can connect later.
 
@@ -41,6 +41,6 @@ The archive misspells the folder as assests, while the original HTML requests as
 
 ## Project layout and verification
 
-js/mars-mission.js owns the Frame 5/6 state transitions and partner interactions. js/scene2.js keeps the original scene and adds outdoor bounds to cabin-motion. js/cardboard-phone.js keeps the stereo renderer adapter and gaze navigation. index.html contains the preserved cabin and imported Mars geometry. assets/audio/partner-source.json records the supplied audio. docs/PARTNER-INTEGRATION.md explains the adaptation and event contract.
+js/mars-mission.js owns the Frame 5/6 state transitions and partner interactions. js/scene2.js keeps the original scene and adds outdoor bounds to cabin-motion. js/cardboard-phone.js keeps the stereo renderer adapter and cabin gaze navigation. js/mars-walk.js adds gaze-selected outdoor walking routes, stop, return, and tracking/focus-loss stops. index.html contains the preserved cabin and imported Mars geometry. assets/audio/partner-source.json records the supplied audio. docs/PARTNER-INTEGRATION.md explains the adaptation and event contract.
 
-Run **npm test**. The eight checks protect Jesse's cabin/launch, old unloaded launch.js, existing audio, all original partner files, the unchanged partner MP3, and the partner habitat/landing/effect geometries. docs/integrated-mars-checks.json records actual browser checks. Phone sensors are simulated in browser QA; the supplied iPhone SE/iOS 26.5 and physical viewer still require real-device validation. The stereo profile has no viewer-specific QR lens calibration or lens correction.
+Run **npm test**. The eight checks protect Jesse's cabin/launch, old unloaded launch.js, existing audio, all original partner files, the unchanged partner MP3, and the partner habitat/landing/effect geometries. docs/integrated-mars-checks.json records the integrated browser checks. docs/mars-gaze-walk-checks.json records the added walking checks. Phone sensors are simulated in browser QA; the supplied iPhone SE/iOS 26.5 and physical viewer still require real-device validation. The stereo profile has no viewer-specific QR lens calibration or lens correction.

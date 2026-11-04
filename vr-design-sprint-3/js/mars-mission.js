@@ -150,7 +150,7 @@
       if(this.phase!=='arrival-ready'||this.transitioning)return false;
       this.phase='exploring';this.motion.locomotionEnabled=true;this.camera.setAttribute('wasd-controls',{enabled:true,acceleration:30,fly:false});
       this.explore.classList.remove('clickable');this.exploreLabel.setAttribute('value','EXPLORATION ACTIVE');this.exploreHideAt=performance.now()+1500;
-      this.say('06 / MARS EXPLORATION','Welcome to Mars! Explore the habitats. Use WASD, touch movement, or the headset gaze navigation controls.','LOOK AT THE GLOWING HABITAT MARKERS');
+      this.say('06 / MARS EXPLORATION','Welcome to Mars! Look down toward the colony for WALK TO controls. Hold a destination to walk there; gaze at STOP WALKING to pause. Look up at the glowing habitat markers to inspect them.','LOOK DOWN / HOLD WALK TO PATH TO WALK');
       this.flight.description.style.color='#38bdf8';this.el.emit('mars-exploration-start',{},false);return true;
     },
     tick:function(){

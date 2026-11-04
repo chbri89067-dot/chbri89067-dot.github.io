@@ -147,6 +147,7 @@
       if(!this.active||this.paused)return;
       if(['left','right','forward','back'].includes(action)&&this.motion.locomotionEnabled===false)return;
       const p=this.player.object3D.position;
+      if(['left','right','forward','back','seat'].includes(action))this.player.components['mars-walk']?.stop('STOPPED / CHOOSE A DESTINATION');
       if(action==='left')p.x-=.3;if(action==='right')p.x+=.3;
       if(action==='forward')p.z-=.3;if(action==='back')p.z+=.3;
       if(action==='seat')this.motion.recenter();

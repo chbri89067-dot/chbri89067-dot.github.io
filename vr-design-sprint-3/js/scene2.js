@@ -158,6 +158,7 @@
         this.el.sceneEl.addEventListener('click',this.guard,true);
         canvas.addEventListener('pointerdown',this.down,true);canvas.addEventListener('pointermove',this.move,true);
         this.touchStart=e=>{
+          if(this.el.sceneEl.components['cardboard-phone']?.active){e.preventDefault();e.stopImmediatePropagation();return;}
           if(e.touches.length<2)return;
           const c=this.el.sceneEl.components['scene-two'];if(!c.ready)return;
           this.touchWalking=true;this.dragged=true;this.touchX=(e.touches[0].clientX+e.touches[1].clientX)/2;this.touchY=(e.touches[0].clientY+e.touches[1].clientY)/2;

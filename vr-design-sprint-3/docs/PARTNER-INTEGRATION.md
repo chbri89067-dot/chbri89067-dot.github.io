@@ -42,3 +42,10 @@ Future Frame 4 can emit scene4-complete to call the same landing preparation. Fr
 ## Sound provenance
 
 The original partner file and runtime alias must remain byte-identical. Source manifest: assets/audio/partner-source.json. Its creator and license were not provided, so credits do not claim a CC0 license for it. All seven reference files have hashes in tests/fixtures/partner-files.json. They are preserved for review, not executed by the integrated page.
+
+
+## Gaze-selected outdoor walking revision
+
+js/mars-walk.js attaches to the existing player entity. After mars-exploration-start, a position-following, world-oriented in-world panel offers path, Alpha, Beta, Gamma, return and stop. All six use the existing head reticle and 1.8-second dwell; no separate renderer, cursor, phone touch, asset or audio is added. Routes use the central x=0 corridor and stops at (0,-9), (-8,-14), (8,-25), (0,-38) and the original arrival start (0,-1.5), expressed as world x,z. Routes approach in front of the habitat footprints. The camera never auto-turns, and only player position changes.
+
+Walking accelerates to 1.6 units/second, slows at the final stop, and uses the original path/ground heights. STOP, manual input, phone tracking loss, visibility/focus loss and viewer exit cancel travel. The cabin's small gaze steps and desktop WASD remain. mars-walk-start, mars-walk-stop and mars-walk-arrived are non-bubbling scene events. All partner reference files and audio bytes are preserved.
