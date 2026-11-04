@@ -1,9 +1,7 @@
-# Current verification
+# Current ring and final-view verification
 
-Run npm test with Node.js 18 or later. The 13 tests cover the original cabin/launch, unchanged legacy source, four library sound hashes/licenses, seven partner originals, partner MP3, habitat/landing geometry, Jesse's Scene 3/4 wiring, and exact preservation of the new world geometry and cruise/escape/approach behavior except the documented lifecycle/UI adjustments.
+Run npm test. All 14 tests include the original geometry/audio/scene preservation checks and an exact comparison of the dwell controller after removing only the new visual backing references. Its timing, progress direction, hover, cancellation, selection and confirmation logic remain byte-identical.
 
-mobile-six-scenes-checks.json records the actual normal six-scene browser journey, gaze launch/engine, gravity, automatic cruise/approach, one stereo session and permission, landing audio and arrival. A separate Scene 3 preview checks four distinct gazes, no held-gaze repeat, eight shards and the original escape.
+ring-clear-mars-checks.json records rendered material opacity, 1.5-times stroke width, black-backed contrast above 3:1, unchanged one-second clockwise behavior, leave/reset and one selection per hover, earlier-scene menu controls, landing handoff, actual removal of final-scene navigation/overlay DOM nodes across phone/desktop viewport sizes, retained world-marker confirmation and no JavaScript/HTTP errors.
 
-mobile-interface-walk-checks.json records collapsed menus, disabled hidden targets, shared four-times-size heavier hint, clockwise hover ring, cancel/reset, one activation until leave, 0.5/1/2-second timing and clamping, gaze Menu/Hide Menu, actual outdoor movement to every habitat, stop/return, closed-menu stop, tracking/focus loss, phone tap blocking and gaze exit.
-
-These browser checks emulate a phone viewport with synthetic orientation, not Safari hardware or headset optics. Physical iPhone SE/iOS 26.5/Cardboard remains untested. Other older JSON evidence files are historical snapshots of earlier versions, not current timing/menu specifications.
+Phone sensor input is simulated. Physical iPhone/Cardboard testing is not performed. Phone orientation input changes rotation, not real-world forward/back position. Earlier six-scene and walking-interface reports are historical records of the previous UI.

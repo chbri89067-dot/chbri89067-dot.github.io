@@ -1,0 +1,38 @@
+{
+  "url": "http://localhost:8080/",
+  "checks": {
+    "opacity_stroke_clockwise_and_duration_correct": true,
+    "both_ring_layers_have_at_least_three_to_one_contrast": true,
+    "pointer_leave_cancels_resets_and_hides_all_layers": true,
+    "completion_hides_ring_and_selects_once_earlier_menu_unchanged": true,
+    "landing_hands_off_to_final_without_explore_button": true,
+    "final_navigation_and_overlay_nodes_absent_at_every_tested_size": true,
+    "no_automated_walking_component_remains_in_final": true
+  },
+  "physical_iPhone_tested": false,
+  "sensorInput": "Synthetic orientation; phone position tracking is not implemented",
+  "ring": {
+    "fillOpacity": 1,
+    "trackOpacity": 0.7,
+    "stroke": 0.010499999999999999,
+    "fillColor": "#ffffff",
+    "trackColor": "#c084fc",
+    "backColor": "#000000",
+    "backOpacity": 1,
+    "fillTransparent": true,
+    "fillVisible": true,
+    "trackVisible": true,
+    "backVisible": true,
+    "arc": 119.98799998283387,
+    "clockwise": true,
+    "duration": 1000
+  },
+  "contrast": {
+    "fillAgainstBacking": 21,
+    "trackAgainstBacking": 4.195098832419785,
+    "fillAgainstTrack": 5.005841540063774
+  },
+  "checks_original_world_marker_confirmation_retained_without_panel": true,
+  "javascript_errors": [],
+  "http_errors": []
+}

@@ -126,8 +126,9 @@
     init:function(){
       this.target=null;this.waited=0;this.fired=false;this.baseScale=this.el.object3D.scale.clone();
       this.ring=document.querySelector('#dwell-progress');this.outline=document.querySelector('#dwell-outline');this.hint=document.querySelector('#dwell-hint');this.lastArc=-1;
+      this.backing=document.querySelector('#dwell-backing');
       this.feedbackLayers=[];
-      for(const [node,order] of [[this.outline,1002],[this.ring,1003],[this.el,1004]])if(node){
+      for(const [node,order] of [[this.backing,1001],[this.outline,1002],[this.ring,1003],[this.el,1004]])if(node){
         const apply=()=>{const mesh=node.getObject3D('mesh');if(mesh){mesh.renderOrder=order;mesh.material.depthTest=false;mesh.material.depthWrite=false;}};
         node.addEventListener('object3dset',apply);apply();this.feedbackLayers.push([node,apply]);
       }
@@ -152,12 +153,14 @@
           this.fired=true;
           // Hide feedback before the action changes the scene or menu state.
           this.ring?.setAttribute('visible',false);this.outline?.setAttribute('visible',false);this.hint?.setAttribute('visible',false);
+          this.backing?.setAttribute('visible',false);
           target.emit('click',{cursorEl:this.el,inputMethod:'head-gaze-dwell'},true);
         }
       }
       const hovering=!!target&&!this.fired,progress=hovering?clamp(this.waited/this.data.duration,0,1):0;
       this.el.object3D.scale.copy(this.baseScale).multiplyScalar(1+progress*.3);
       this.ring?.setAttribute('visible',hovering);this.outline?.setAttribute('visible',hovering);this.hint?.setAttribute('visible',hovering);
+      this.backing?.setAttribute('visible',hovering);
       const arc=hovering?Math.max(.01,progress*360):.01;
       if(this.ring&&Math.abs(arc-this.lastArc)>.5){this.ring.setAttribute('geometry','thetaLength',arc);this.lastArc=arc;}
     },

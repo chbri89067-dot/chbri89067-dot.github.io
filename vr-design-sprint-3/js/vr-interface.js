@@ -41,8 +41,8 @@
       this.onStop=()=>this.walk.stop('STOPPED / CHOOSE A DESTINATION');
       this.toggle.addEventListener('click',this.onToggle);this.stopButton.addEventListener('click',this.onStop);
       this.onPhase=()=>this.setOpen(false);
-      this.events=['cardboard-start','cardboard-end','scene2-start','scene3-start','scene4-start','scene5-start','scene6-start'];
-      this.events.forEach(name=>this.scene.addEventListener(name,this.onPhase));this.ready=true;this.sync(true);
+      this.phaseEvents=['cardboard-start','cardboard-end','scene2-start','scene3-start','scene4-start','scene5-start','scene6-start'];
+      this.phaseEvents.forEach(name=>this.scene.addEventListener(name,this.onPhase));this.ready=true;this.sync(true);
     },
     setOpen:function(open){this.open=!!open;this.sync(true);},
     sync:function(force=false){
@@ -78,7 +78,32 @@
     },
     remove:function(){
       this.el.sceneEl.removeEventListener('loaded',this.setupBound);if(!this.ready)return;
-      this.events.forEach(name=>this.scene.removeEventListener(name,this.onPhase));this.toggle.removeEventListener('click',this.onToggle);this.stopButton.removeEventListener('click',this.onStop);this.anchor.remove();
+      this.phaseEvents.forEach(name=>this.scene.removeEventListener(name,this.onPhase));this.toggle.removeEventListener('click',this.onToggle);this.stopButton.removeEventListener('click',this.onStop);this.anchor.remove();
     }
+  });
+
+  // Final-scene navigation UI is removed from the document, not hidden.
+  AFRAME.registerComponent('clear-mars-ui',{
+    init:function(){
+      this.onArrival=()=>queueMicrotask(()=>this.clear());
+      this.el.addEventListener('scene6-start',this.onArrival);
+    },
+    clear:function(){
+      if(this.cleared)return;this.cleared=true;
+      const player=document.getElementById('player');
+      player.removeAttribute('vr-menu');player.removeAttribute('mars-walk');
+      for(const id of ['phone-actions','mars-explore-btn','mission-head-status','hud','movement-help','audio-sources','phone-open','phone-exit'])document.getElementById(id)?.remove();
+      this.el.querySelectorAll('.a-enter-vr,.a-enter-ar').forEach(node=>node.remove());
+      this.pendingStart=true;
+    },
+    tick:function(){
+      const mission=this.el.components['mars-mission'];
+      if(this.pendingStart&&mission?.phase==='arrival-ready'&&!mission.transitioning){
+        // No redundant Explore button is left on the final view. Existing
+        // desktop/joystick movement and habitat feedback remain unchanged.
+        this.pendingStart=false;mission.beginExploration();
+      }
+    },
+    remove:function(){this.el.removeEventListener('scene6-start',this.onArrival);}
   });
 }());

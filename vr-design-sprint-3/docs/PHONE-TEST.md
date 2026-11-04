@@ -1,6 +1,6 @@
 # Test the complete mobile VR project
 
-No account is required. Full experience: https://chbri89067-dot.github.io/vr-design-sprint-3/?cardboard=1&v=mobile-20261104
+No account is required. Full experience: https://chbri89067-dot.github.io/vr-design-sprint-3/?cardboard=1&v=ring-clear-mars-20261104
 
 ## Start in Safari
 
@@ -11,33 +11,35 @@ No account is required. Full experience: https://chbri89067-dot.github.io/vr-des
 
 ## Try the scenes
 
-Gaze at LAUNCH, then use GRAVITY in Scene 2. Scene 3's solar-system cruise and Scene 4's Mars approach now run automatically, followed by the purple LAND control. After touchdown, gaze at EXPLORE MARS.
+Gaze at LAUNCH, then use GRAVITY in Scene 2. Scene 3's solar-system cruise and Scene 4's Mars approach now run automatically, followed by the purple LAND control. After touchdown, the final Mars view opens automatically.
 
 In Scene 3, try the Easter egg: gaze at the forward window four separate times, looking away between each activation. Jesse's cracks, shards and zero-gravity float-out run. Staying focused on the window counts once. Space movement is available through Menu after the float-out. The scene then proceeds toward Mars.
 
 The existing SKIP ASCENT / CLOSE EYES console label offers a gaze-operated shortcut to landing; no closed-eye sensing is implemented.
 
-## Menu and walking
+## Menu in Scenes 1–5 and the final Mars view
 
-Look down in the original forward direction for Menu. Hold it to display options; hold Hide Menu to close them. Options are hidden by default and cannot be selected while closed. Menus collapse when the scene changes.
+In Scenes 1–5, look down in the original forward direction for Menu. Hold it to display the existing options; hold Hide Menu to close them. Their behavior and dwell timing are unchanged.
 
-After EXPLORE, Menu reveals Walk to Path, Alpha, Beta, Gamma, Return to Start and Stop Walking, plus Sound and Exit Viewer. Choose a destination and the virtual character walks along the central corridor to its approach point. Select Stop Walking to pause, or Return to Start to walk back. If you close the menu during walking, Stop Walking remains beside Menu. Stay seated while the virtual character moves.
+The final scene removes walking destinations, Stop/Return, Menu, Explore, phone-action containers and navigation captions from the DOM. They occupy no space and cannot receive clicks, hover or focus. The Mars world and existing habitat markers remain. Safari setup is still shown before entering the phone viewer when opening the final-scene preview directly.
 
-In the ship and space, Menu provides direction steps, floating height, return to seat, sound and exit. Each uses the same dwell setting. Turning the phone/head continues to change the view in every scene. Screen taps do not select in-world buttons and two-finger walking is blocked during headset mode. Touch controls still work outside the viewer.
+The iPhone/Cardboard path tracks head rotation, not physical position. Moving or walking forward/backward does not move the character. With the walking controls removed, phone users have a stationary look-around view. Existing desktop WASD remains unchanged. No replacement movement gesture has been added.
+
+The ring uses an opaque white fill, a 70%-opaque purple track and an opaque black backing. The stroke is 1.5 times its previous width. Its 0.5–2-second configurable timing, clockwise fill, leave-to-cancel/reset, once-per-hover selection and confirmation behavior are preserved.
 
 ## Fast tests and download
 
-- Scene 3 and window: https://chbri89067-dot.github.io/vr-design-sprint-3/?scene=3&cardboard=1&v=mobile-20261104
-- Scene 4: https://chbri89067-dot.github.io/vr-design-sprint-3/?scene=4&cardboard=1&v=mobile-20261104
-- Mars walking: https://chbri89067-dot.github.io/vr-design-sprint-3/?scene=6&cardboard=1&v=mobile-20261104
-- Complete project: https://chbri89067-dot.github.io/vr-design-sprint-3/VR-Design-Sprint-3-Mobile-Complete.zip?v=mobile-20261104
+- Scene 3 and window: https://chbri89067-dot.github.io/vr-design-sprint-3/?scene=3&cardboard=1&v=ring-clear-mars-20261104
+- Scene 4: https://chbri89067-dot.github.io/vr-design-sprint-3/?scene=4&cardboard=1&v=ring-clear-mars-20261104
+- Mars view: https://chbri89067-dot.github.io/vr-design-sprint-3/?scene=6&cardboard=1&v=ring-clear-mars-20261104
+- Complete project: https://chbri89067-dot.github.io/vr-design-sprint-3/VR-Design-Sprint-3-Mobile-Complete.zip?v=ring-clear-mars-20261104
 
 The extracted package includes START-HERE.html and READ-ME-FIRST.txt. To run on a computer, use Node.js 18+ and Start-VR.cmd or npm start. Use the public HTTPS link for the phone test.
 
 ## Record your physical test
 
-After exiting by gaze, expand Record my phone test. Tick only what you observed and download the record. The report is stored locally, not uploaded. Check stereo alignment, head turning, one-second ring, cancel/re-enter behavior, Menu/Hide Menu, gravity, cruise/approach, window escape, landing audio, walking and gaze exit.
+After exiting by gaze, expand Record my phone test. Tick only what you observed and download the record. The report is stored locally, not uploaded. Check stereo alignment, head turning, one-second ring, cancel/re-enter behavior, Menu/Hide Menu in Scenes 1–5, gravity, cruise/approach, window escape, landing audio and the clear final Mars view.
 
-If motion stops, keep Safari visible, rotate to landscape and retry. Tracking loss, leaving landscape, hiding the page or exiting the viewer stops automated walking. When readings return, choose a destination again. If sound is absent, raise media volume, exit and tap Start again. If the two views do not merge, exit and adjust eye spacing/FOV and headset alignment.
+If motion stops, keep Safari visible, rotate to landscape and retry. If sound is absent, raise media volume, exit and tap Start again. If the two views do not merge, exit and adjust eye spacing/FOV and headset alignment.
 
 Browser QA uses synthetic orientation and does not validate physical iPhone SE/iOS 26.5/Cardboard behavior. The generic stereo profile has no viewer-QR calibration or lens-distortion correction. Safari setup still requires the initial permission/audio gesture.

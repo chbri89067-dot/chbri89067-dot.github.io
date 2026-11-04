@@ -4,7 +4,7 @@ A-Frame 1.8.0 with all six scenes in one scene, camera and renderer. This mobile
 
 ## Phone test
 
-Open https://chbri89067-dot.github.io/vr-design-sprint-3/?cardboard=1&v=mobile-20261104 in Safari. Turn the phone sideways, tap Allow motion & start viewer and approve motion before placing it in the headset. This initial gesture prepares Safari motion and audio. After setup, turn your head to aim the center reticle and hold a target for one second. A purple outline appears, fills clockwise, disappears and selects once. Look away before selecting that target again. Looking away early cancels and resets the fill.
+Open https://chbri89067-dot.github.io/vr-design-sprint-3/?cardboard=1&v=ring-clear-mars-20261104 in Safari. Turn the phone sideways, tap Allow motion & start viewer and approve motion before placing it in the headset. This initial gesture prepares Safari motion and audio. After setup, turn your head to aim the center reticle and hold a target for one second. A purple outline appears, fills clockwise, disappears and selects once. Look away before selecting that target again. Looking away early cancels and resets the fill.
 
 Set Selection hold to 0.5, 1, 1.5 or 2 seconds before starting. Developers can set gaze-dwell.duration in milliseconds; it is clamped to 500–2000. The ?dwell=0.5 through ?dwell=2 query option supports intermediate values. A shared bold HOLD TO SELECT label is at least four times the previous rendered size and disappears on selection or cancellation.
 
@@ -15,13 +15,13 @@ Set Selection hold to 0.5, 1, 1.5 or 2 seconds before starting. Developers can s
 3. Jesse's Scene 3 shows the moving solar-system cruise for 14 seconds. Optional: gaze at the forward window four separate times, looking away between selections. His cracks, eight shards and 2.4-second zero-gravity float-out run. The subsequent cruise retains his timing and movement.
 4. Scene 4 advances and enlarges Mars over 16 seconds, then automatically prepares the landing.
 5. Gaze at LAND. The partner's unchanged recording and original 12-second descent, 12.5-second touchdown and three-second settling run.
-6. Gaze at EXPLORE MARS. Look down toward the original forward direction and select Menu, then Walk to Path / Alpha / Beta / Gamma or Return to Start. The character walks automatically and stops outside each habitat. Gaze at Stop Walking to pause.
+6. The final Mars scene opens automatically. Its walking buttons, navigation menu, Explore control and overlay containers are removed from the document. The phone viewer can look around; it does not track physical forward/backward movement. Existing desktop keyboard movement and habitat markers remain.
 
 The existing SKIP ASCENT / HOLD / CLOSE EYES console label is Jesse's optional shortcut to landing. Gaze selects it; the phone does not detect closed eyes.
 
 ## Menu
 
-The menu starts collapsed. Gaze at Menu to show the options, then Hide Menu to collapse them. The same button stays in place and requires look-away before another selection. Closed options are removed from raycasting. Cabin/space movement, floating height, recenter, sound and exit appear in the cabin menu. Mars shows walking destinations plus sound and exit. If the menu is hidden while walking, a separate Stop Walking control remains beside Menu. Major scene changes collapse the menu.
+The menu starts collapsed. Gaze at Menu to show the options, then Hide Menu to collapse them. The same button stays in place and requires look-away before another selection. Closed options are removed from raycasting. Cabin/space movement, floating height, recenter, sound and exit appear in the menu during Scenes 1–5. The final scene removes this menu and all walking controls, including their DOM containers, rather than hiding them. Major earlier scene changes still collapse the menu.
 
 The menu follows your position and stays in the world's original forward direction, so you can turn your head to target every option. It does not lock the off-center buttons to head rotation. Screen selection and two-finger walking are blocked in phone viewer mode. Outside the viewer, desktop drag/click/WASD and touch movement remain. V toggles desktop gaze mode.
 
@@ -39,4 +39,7 @@ js/scene34.js owns Jesse's Scenes 3–4. js/vr-interface.js owns Menu/Hide Menu 
 
 credits.html contains each sound's usage, preview, source and license information. The supplied partner MP3 has no creator/license in its original package, and remains identified accordingly.
 
-Run npm test: 13 checks protect Jesse's and the partner's source assets, geometry, audio and scene wiring. Current simulated-phone browser results are docs/mobile-six-scenes-checks.json and docs/mobile-interface-walk-checks.json. Physical iPhone SE/iOS 26.5/Cardboard optics, motion latency and performance still require your real device. The stereo profile has no viewer-specific lens calibration.
+Run npm test: 14 checks protect Jesse's and the partner's source assets, geometry, audio and scene wiring. Current ring/final-view browser results are docs/ring-clear-mars-checks.json. Earlier six-scene/interface reports describe the preceding walking-button version. Physical iPhone SE/iOS 26.5/Cardboard optics, motion latency and performance still require your real device. The stereo profile has no viewer-specific lens calibration.
+
+
+The ring fill is 100% opaque white; the purple track is 70% opaque. Both strokes are 1.5 times wider, on an opaque black ring backing. Timing, clockwise direction, hover/reset, single selection and confirmation behavior are unchanged. Only the final scene removes navigation UI.

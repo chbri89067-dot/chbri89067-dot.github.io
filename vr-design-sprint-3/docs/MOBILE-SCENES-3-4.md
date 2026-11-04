@@ -1,3 +1,5 @@
+> Current revision: ring fill is 100% opaque, track is 70%, and strokes are 1.5 times wider on a black backing. Final-scene navigation/overlay DOM nodes are removed. Earlier scene behavior is retained. See TESTING.md and ring-clear-mars-checks.json for current evidence.
+
 # Jesse Scenes 3–4 and mobile interface integration
 
 Base: GitHub main ac8055ea9032ce1c8aae84c5c09b173a1787dcf0. All 63 source blobs were compared with a local snapshot before editing. Jesse's latest two commits supply Scenes 3–4 and polish the window Easter egg. They add no audio files or synthesis. Existing sound bytes and playback parameters are retained.

@@ -10,13 +10,13 @@
   <link rel="manifest" href="manifest.webmanifest">
   <!-- Load A-Frame 1.8.0 -->
   <script src="vendor/aframe-1.8.0.min.js"></script>
-  <script src="js/vr-interface.js?v=mobile-20261104"></script>
-  <script src="js/scene2.js?v=mobile-20261104"></script>
-  <script src="js/cardboard-phone.js?v=mobile-20261104"></script>
-  <script src="js/mars-walk.js?v=mobile-20261104"></script>
-  <script src="js/mars-mission.js?v=mobile-20261104"></script>
-  <script src="js/scene34.js?v=mobile-20261104"></script>
-  <link rel="stylesheet" href="css/scene2.css?v=mobile-20261104">
+  <script src="js/vr-interface.js?v=ring-clear-mars-20261104"></script>
+  <script src="js/scene2.js?v=ring-clear-mars-20261104"></script>
+  <script src="js/cardboard-phone.js?v=ring-clear-mars-20261104"></script>
+  <script src="js/mars-walk.js?v=ring-clear-mars-20261104"></script>
+  <script src="js/mars-mission.js?v=ring-clear-mars-20261104"></script>
+  <script src="js/scene34.js?v=ring-clear-mars-20261104"></script>
+  <link rel="stylesheet" href="css/scene2.css?v=ring-clear-mars-20261104">
   <style>
     body { margin: 0; background: #000; font-family: sans-serif; overflow: hidden; }
     #hud {
@@ -34,7 +34,7 @@
     <p>Click or tap the purple LAUNCH button on the console to start engine ignition. In VR, aim and select.</p>
   </div>
 
-  <a-scene scene-two cardboard-phone mars-mission device-orientation-permission-ui="enabled: false" renderer="colorManagement: true" background="color: #020617">
+  <a-scene scene-two cardboard-phone mars-mission clear-mars-ui device-orientation-permission-ui="enabled: false" renderer="colorManagement: true" background="color: #020617">
 
     <!-- Asset Manager -->
     <a-assets>
@@ -57,8 +57,9 @@
       <a-entity id="player" cabin-motion mars-walk vr-menu>
       <a-camera id="camera" look-controls wasd-controls="acceleration: 10" camera="near: 0.05; far: 5000">
         <a-cursor id="reticle" screen-selection fuse="false" fuse-timeout="1000" raycaster="objects: .clickable" material="color: #00ffff; shader: flat" position="0 0 -1" scale="0.4 0.4 0.4"></a-cursor>
-        <a-ring id="dwell-outline" position="0 0 -.99" radius-inner=".029" radius-outer=".036" material="shader: flat; color: #c084fc; opacity: .3; transparent: true; depthTest: false; depthWrite: false; side: double" visible="false"></a-ring>
-        <a-ring id="dwell-progress" position="0 0 -0.99" radius-inner=".029" radius-outer=".036" scale="-1 1 1" theta-start="90" theta-length="1" segments-theta="96" material="shader: flat; color: #c084fc; depthTest: false; depthWrite: false; side: double" visible="false"></a-ring>
+        <a-ring id="dwell-backing" position="0 0 -.99" radius-inner=".02375" radius-outer=".04125" material="shader: flat; color: #000000; opacity: 1; transparent: true; depthTest: false; depthWrite: false; side: double" visible="false"></a-ring>
+        <a-ring id="dwell-outline" position="0 0 -.99" radius-inner=".02725" radius-outer=".03775" material="shader: flat; color: #c084fc; opacity: .7; transparent: true; depthTest: false; depthWrite: false; side: double" visible="false"></a-ring>
+        <a-ring id="dwell-progress" position="0 0 -0.99" radius-inner=".02725" radius-outer=".03775" scale="-1 1 1" theta-start="90" theta-length="1" segments-theta="96" material="shader: flat; color: #ffffff; opacity: 1; transparent: true; depthTest: false; depthWrite: false; side: double" visible="false"></a-ring>
         <a-text id="dwell-hint" bold-label font="vendor/fonts/Roboto-msdf.json" font-image="vendor/fonts/Roboto-msdf.png" shader="msdf" value="HOLD TO SELECT" align="center" position="0 -.13 -.99" width="2.0" color="#ffffff" visible="false"></a-text>
         <a-text id="mission-head-status" font="vendor/fonts/Roboto-msdf.json" font-image="vendor/fonts/Roboto-msdf.png" shader="msdf" value="" align="center" position="0 .4 -1.7" width="1.7" color="#38bdf8" visible="false"></a-text>
         <a-plane id="mission-fade" position="0 0 -.08" width="20" height="20" material="shader: flat; color: #000000; opacity: 0; transparent: true; depthTest: false; depthWrite: false" visible="false"></a-plane>
@@ -274,8 +275,8 @@
       <ol>
         <li>Look at the purple <strong>LAUNCH</strong> control for 1 second.</li>
         <li>In space, look at <strong>GRAVITY</strong> to float or settle down. Scenes 3 and 4 continue automatically. In Scene 3, four separate gazes at the forward window trigger the optional escape.</li>
-        <li>Look at <strong>LAND</strong> to descend. On Mars, select <strong>EXPLORE</strong>, then look down and select <strong>Menu</strong> for <strong>WALK TO PATH / ALPHA / BETA / GAMMA</strong>. Hold one to walk there. Gaze at <strong>STOP WALKING</strong> to pause. Look up at habitat markers to inspect them.</li>
-        <li>Look behind you for additional space scenery. Select <strong>Menu</strong> below the forward view for controls; select <strong>Hide Menu</strong> to collapse them. Look away before selecting the same control again.</li>
+        <li>Look at <strong>LAND</strong> to descend. The final Mars view opens automatically with its navigation buttons and panels removed. Look up at habitat markers to inspect them.</li>
+        <li>Look behind you for additional space scenery. In Scenes 1–5, select <strong>Menu</strong> below the forward view for controls; select <strong>Hide Menu</strong> to collapse them. Look away before selecting the same control again.</li>
       </ol>
       <p class="phone-note">Hold the center reticle on a control until the purple ring fills. Screen taps do not select controls while the viewer is running. Selection starts after a short settling delay. This tracks head turning, not your eyes or physical walking.</p>
       <div class="phone-settings">
@@ -297,7 +298,7 @@
           <label><input type="checkbox" name="gazeGravity"> Gaze turns gravity off and back on</label>
           <label><input type="checkbox" name="cabinControls"> Cabin controls move and recenter me</label>
           <label><input type="checkbox" name="gazeLanding"> Gaze starts Mars landing with the partner's audio</label>
-          <label><input type="checkbox" name="gazeWalk"> Gaze walks to Mars destinations and stops / returns</label>
+          <label><input type="checkbox" name="clearMarsView"> The final Mars view has no walking or menu overlays</label>
           <label><input type="checkbox" name="gazeMenu"> Menu and Hide Menu work by gaze</label>
           <label><input type="checkbox" name="gazeDwell"> The ring fills, cancels and selects once</label>
           <label><input type="checkbox" name="windowEscape"> Four separate gazes break the window</label>
