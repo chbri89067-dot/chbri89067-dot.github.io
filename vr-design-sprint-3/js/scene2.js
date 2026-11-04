@@ -67,6 +67,7 @@
   AFRAME.registerComponent('cabin-motion', {
     init: function () {
       this.gravity = true; this.enabled = false; this.height = 0; this.heightTrim = 0;
+      this.environment = 'cabin'; this.locomotionEnabled = true;
       this.keys = new Set(); this.stick = {x: 0, y: 0}; this.touch = {x: 0, y: 0}; this.elapsed = 0;
       this.forward = new THREE.Vector3(); this.right = new THREE.Vector3(); this.rotation = new THREE.Quaternion();
       this.keyDown = e => { if(!e.target.matches('input,select,textarea')) this.keys.add(e.code); };
@@ -81,6 +82,7 @@
     recenter: function () {
       const camera = document.querySelector('#camera'); this.el.object3D.position.x = this.el.object3D.position.z = 0;
       camera.object3D.position.x = camera.object3D.position.z = 0;
+      if(this.environment==='mars'){this.el.object3D.position.set(0,-.45,-6.5);}
       const wasd = camera.components['wasd-controls']; if(wasd && wasd.velocity) wasd.velocity.set(0,0,0);
     },
     tick: function (time, delta) {
@@ -93,17 +95,25 @@
       }
       const target = this.enabled && !this.gravity ? .58+this.heightTrim+.035*Math.sin(this.elapsed*1.15) : 0;
       this.height += (target-this.height)*(1-Math.exp(-dt*1.6));
-      this.el.object3D.position.y = this.height;
+      if(this.environment!=='mars')this.el.object3D.position.y = this.height;
       const x = clamp(this.stick.x+this.touch.x,-1,1), z = clamp(this.stick.y+this.touch.y,-1,1);
-      if(Math.abs(x)>.12 || Math.abs(z)>.12){
+      if(this.locomotionEnabled&&(Math.abs(x)>.12 || Math.abs(z)>.12)){
         camera.object3D.getWorldQuaternion(this.rotation);this.forward.set(0,0,-1).applyQuaternion(this.rotation);this.forward.y=0;this.forward.normalize();
         this.right.crossVectors(this.forward,new THREE.Vector3(0,1,0)).normalize();
         this.el.object3D.position.addScaledVector(this.forward,-z*dt*.8).addScaledVector(this.right,x*dt*.8);
       }
-      // Keep walking and tracked-controller locomotion inside the original walls.
+      // Cabin bounds remain unchanged. Mars uses the partner's outdoor space.
+      const rig=this.el.parentElement.object3D.position;
       for(const axis of ['x','z']){
-        const total = this.el.object3D.position[axis]+camera.object3D.position[axis];
-        const bounded = clamp(total,-2.45,2.45); this.el.object3D.position[axis] += bounded-total;
+        const outside=this.environment==='mars';
+        const total=this.el.object3D.position[axis]+camera.object3D.position[axis]+(outside?rig[axis]:0);
+        const bounded=outside?clamp(total,axis==='x'?-55:-70,axis==='x'?55:15):clamp(total,-2.45,2.45);
+        this.el.object3D.position[axis]+=bounded-total;
+      }
+      if(this.environment==='mars'){
+        const worldX=rig.x+this.el.object3D.position.x+camera.object3D.position.x,worldZ=rig.z+this.el.object3D.position.z+camera.object3D.position.z;
+        const ground=Math.abs(worldX)<=5&&worldZ>=0&&worldZ<=10?.2:Math.abs(worldX)<=2.5&&worldZ>=-30&&worldZ<=0?.055:0;
+        this.el.object3D.position.y=ground-rig.y;
       }
     },
     remove: function () {window.removeEventListener('keydown',this.keyDown);window.removeEventListener('keyup',this.keyUp);window.removeEventListener('blur',this.clear);this.controllers.forEach(c=>{c.removeEventListener('thumbstickmoved',this.onStick);c.removeEventListener('controllerdisconnected',this.clear);});}
@@ -116,7 +126,8 @@
     init:function(){this.target=null;this.waited=0;this.fired=false;this.baseScale=this.el.object3D.scale.clone();this.ring=document.querySelector('#dwell-progress');this.hint=document.querySelector('#dwell-hint');this.lastArc=-1;},
     tick:function(time,delta){
       const ray=this.el.components.raycaster,scene=this.el.sceneEl.components['scene-two'];
-      const target=this.data.enabled&&ray?ray.intersectedEls.find(e=>e.classList.contains('clickable')&&!(e.id==='gravity-btn'&&!scene.active)):null;
+      const mission=this.el.sceneEl.components['mars-mission'];
+      const target=this.data.enabled&&ray&&!mission?.transitioning?ray.intersectedEls.find(e=>e.classList.contains('clickable')&&!(e.id==='gravity-btn'&&!scene.active)):null;
       if(target!==this.target){this.target=target;this.waited=0;this.fired=false;}
       if(target&&!this.fired){this.waited+=Math.min(delta,100);if(this.waited>=this.data.duration){this.fired=true;target.emit('click',{cursorEl:this.el,inputMethod:'head-gaze-dwell'},true);}}
       const progress=target&&!this.fired?clamp(this.waited/this.data.duration,0,1):0;this.el.object3D.scale.copy(this.baseScale).multiplyScalar(1+progress*.3);
@@ -143,7 +154,7 @@
         this.down=e=>{if(e.isPrimary){this.startX=e.clientX;this.startY=e.clientY;this.dragged=false;}};
         this.move=e=>{if(e.buttons&&Math.hypot(e.clientX-this.startX,e.clientY-this.startY)>8)this.dragged=true;};
         // A-Frame dispatches the 3D click synchronously on pointer release.
-        this.guard=e=>{const phone=this.el.sceneEl.components['cardboard-phone'];if((e.detail?.mouseEvent||e.detail?.touchEvent)&&(phone?.active||this.dragged||this.touchWalking))e.stopImmediatePropagation();};
+        this.guard=e=>{const phone=this.el.sceneEl.components['cardboard-phone'],mission=this.el.sceneEl.components['mars-mission'];if((e.detail?.mouseEvent||e.detail?.touchEvent)&&(phone?.active||mission?.transitioning||this.dragged||this.touchWalking))e.stopImmediatePropagation();};
         this.el.sceneEl.addEventListener('click',this.guard,true);
         canvas.addEventListener('pointerdown',this.down,true);canvas.addEventListener('pointermove',this.move,true);
         this.touchStart=e=>{
@@ -224,6 +235,7 @@
       this.audioEnabled=enabled;this.audioPreference=enabled;if(enabled)THREE.AudioContext.getContext().resume().catch(()=>{});
       if(enabled&&this.active&&!this.audioStarted)this.startAudio();
       if(!enabled){this.music.setAttribute('sound','volume',0);this.hum.setAttribute('sound','volume',0);}
+      this.el.emit('scene-audio-changed',{enabled},false);
     },
     startAudio: function () {
       if(!this.audioEnabled||!this.music.components.sound||!this.hum.components.sound)return;

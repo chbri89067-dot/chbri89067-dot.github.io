@@ -1,0 +1,437 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Earth to Mars - Scene 06: Mars Exploration</title>
+
+  <script src="https://aframe.io/releases/1.8.0/aframe.min.js"></script>
+  <script src="js/mars-walk.js" defer></script>
+
+  <style>
+    body {
+      margin: 0;
+      background: #0b0f19;
+      font-family: sans-serif;
+      color: #fff;
+    }
+
+    #hud-overlay {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 99;
+      text-align: center;
+      pointer-events: none;
+      width: 90%;
+    }
+
+    .hud-title {
+      font-size: 24px;
+      font-weight: bold;
+      color: #00e5ff;
+      text-shadow: 0 0 10px rgba(0,229,255,0.6);
+    }
+
+    .hud-sub {
+      font-size: 14px;
+      color: #a5b4fc;
+      margin-top: 5px;
+    }
+
+    #explore-ui {
+      position: fixed;
+      top: 25px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      text-align: center;
+    }
+
+    #explore-btn {
+      padding: 16px 40px;
+      font-size: 20px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      color: white;
+      background: #7e22ce;
+      border: 2px solid #c084fc;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 0 20px #a855f7;
+      transition: all 0.2s ease;
+    }
+
+    #explore-btn:hover {
+      background: #a855f7;
+      box-shadow: 0 0 35px #c084fc;
+      transform: scale(1.05);
+    }
+
+    #explore-btn:disabled {
+      opacity: 0.7;
+      cursor: default;
+    }
+
+    #movement-hint {
+      position: fixed;
+      top: 90px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 99;
+      font-size: 13px;
+      color: #a5b4fc;
+      text-align: center;
+      pointer-events: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HUD -->
+  <div id="hud-overlay">
+    <div class="hud-title">06 Mars Exploration</div>
+    <div class="hud-sub">
+      Welcome to Mars. Press EXPLORE to begin.
+    </div>
+  </div>
+
+  <!-- Explore Button -->
+  <div id="explore-ui">
+    <button id="explore-btn">EXPLORE</button>
+  </div>
+
+  <div id="movement-hint">
+    WASD: Move | Mouse: Look around
+  </div>
+
+  <a-scene
+    id="mars-scene"
+    xr-mode-ui="enabled: true"
+    background="color: #5c2528">
+
+    <!-- Assets -->
+    <a-assets>
+      <img
+        id="mars-ground-tex"
+        src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/textures/planets/mars_1k_color.jpg"
+        crossorigin="anonymous">
+    </a-assets>
+
+    <!-- Mars sky -->
+    <a-sky color="#5c2528"></a-sky>
+
+    <!-- Distant horizon -->
+    <a-sphere
+      position="0 -45 -100"
+      radius="80"
+      scale="1 0.5 1"
+      color="#8c382b">
+    </a-sphere>
+
+    <!-- Ground -->
+    <a-plane
+      id="mars-ground"
+      rotation="-90 0 0"
+      position="0 0 0"
+      width="500"
+      height="500"
+      color="#a34e38">
+    </a-plane>
+
+    <!-- Terrain -->
+    <a-sphere
+      position="-25 0 -50"
+      radius="20"
+      scale="2 0.5 1"
+      color="#7c3026">
+    </a-sphere>
+
+    <a-sphere
+      position="30 0 -60"
+      radius="25"
+      scale="1.5 0.5 1"
+      color="#8b3a2b">
+    </a-sphere>
+
+    <!-- Mars rocks -->
+    <a-sphere
+      position="-10 0.5 -10"
+      radius="2"
+      scale="1.5 0.6 1"
+      color="#6b2b23">
+    </a-sphere>
+
+    <a-sphere
+      position="12 0.6 -15"
+      radius="2"
+      scale="1.3 0.8 1"
+      color="#7c3026">
+    </a-sphere>
+
+    <a-sphere
+      position="-15 0.5 -25"
+      radius="3"
+      scale="1.5 0.5 1"
+      color="#8b3a2b">
+    </a-sphere>
+
+    <a-sphere
+      position="18 0.5 -30"
+      radius="3"
+      scale="1.2 0.7 1"
+      color="#713327">
+    </a-sphere>
+
+    <!-- Exploration path -->
+    <a-box
+      position="0 0.03 -15"
+      width="5"
+      height="0.05"
+      depth="30"
+      color="#6b3028">
+    </a-box>
+
+    <!-- Neon path lights -->
+    <a-cylinder
+      position="-2.5 0.08 -5"
+      radius="0.12"
+      height="0.1"
+      color="#00e5ff"
+      material="emissive: #00e5ff; emissiveIntensity: 1">
+    </a-cylinder>
+
+    <a-cylinder
+      position="2.5 0.08 -10"
+      radius="0.12"
+      height="0.1"
+      color="#c084fc"
+      material="emissive: #c084fc; emissiveIntensity: 1">
+    </a-cylinder>
+
+    <a-cylinder
+      position="-2.5 0.08 -20"
+      radius="0.12"
+      height="0.1"
+      color="#00e5ff"
+      material="emissive: #00e5ff; emissiveIntensity: 1">
+    </a-cylinder>
+
+    <!-- Habitat Alpha -->
+    <a-entity id="house1" position="-8 0 -18">
+
+      <a-box
+        position="0 2 0"
+        width="6"
+        height="4"
+        depth="5"
+        color="#1e293b">
+      </a-box>
+
+      <!-- Roof -->
+      <a-cone
+        position="0 4.5 0"
+        radius-bottom="3.8"
+        radius-top="0.2"
+        height="1.5"
+        color="#334155">
+      </a-cone>
+
+      <!-- Windows -->
+      <a-box
+        position="-1.5 2.3 2.55"
+        width="1.3"
+        height="1.2"
+        depth="0.1"
+        color="#0891b2"
+        material="emissive: #0e7490; emissiveIntensity: 0.8">
+      </a-box>
+
+      <a-box
+        position="1.5 2.3 2.55"
+        width="1.3"
+        height="1.2"
+        depth="0.1"
+        color="#0891b2"
+        material="emissive: #0e7490; emissiveIntensity: 0.8">
+      </a-box>
+
+      <!-- Door -->
+      <a-box
+        position="0 1 2.55"
+        width="1.2"
+        height="2"
+        depth="0.15"
+        color="#0f172a">
+      </a-box>
+
+      <!-- Marker -->
+      <a-sphere
+        class="clickable house-marker"
+        data-house="Habitat Alpha"
+        position="0 5.5 0"
+        radius="0.35"
+        color="#c084fc"
+        material="emissive: #c084fc; emissiveIntensity: 1"
+        animation="property: scale; to: 1.2 1.2 1.2; dir: alternate; loop: true; dur: 1000">
+      </a-sphere>
+
+      <a-text
+        value="HABITAT ALPHA"
+        align="center"
+        position="0 6.3 0"
+        width="8"
+        color="#00e5ff">
+      </a-text>
+
+    </a-entity>
+
+    <!-- Habitat Beta -->
+    <a-entity id="house2" position="8 0 -30">
+
+      <a-cylinder
+        position="0 2 0"
+        radius="3"
+        height="4"
+        color="#334155">
+      </a-cylinder>
+
+      <a-sphere
+        position="0 4 0"
+        radius="3"
+        scale="1 0.5 1"
+        color="#475569">
+      </a-sphere>
+
+      <!-- Window -->
+      <a-box
+        position="0 2 2.9"
+        width="2"
+        height="1.5"
+        depth="0.1"
+        color="#0891b2"
+        material="emissive: #0e7490; emissiveIntensity: 0.8">
+      </a-box>
+
+      <!-- Door -->
+      <a-box
+        position="0 1 3"
+        width="1"
+        height="2"
+        depth="0.15"
+        color="#0f172a">
+      </a-box>
+
+      <a-sphere
+        class="clickable house-marker"
+        data-house="Habitat Beta"
+        position="0 5.5 0"
+        radius="0.35"
+        color="#00e5ff"
+        material="emissive: #00e5ff; emissiveIntensity: 1"
+        animation="property: scale; to: 1.2 1.2 1.2; dir: alternate; loop: true; dur: 1000">
+      </a-sphere>
+
+      <a-text
+        value="HABITAT BETA"
+        align="center"
+        position="0 6.3 0"
+        width="8"
+        color="#00e5ff">
+      </a-text>
+
+    </a-entity>
+
+    <!-- Habitat Gamma -->
+    <a-entity id="house3" position="0 0 -45">
+
+      <a-sphere
+        position="0 2.5 0"
+        radius="4"
+        scale="1.5 0.8 1"
+        color="#1e293b">
+      </a-sphere>
+
+      <!-- Window -->
+      <a-box
+        position="0 2 3.5"
+        width="2"
+        height="1.5"
+        depth="0.1"
+        color="#0891b2"
+        material="emissive: #0e7490; emissiveIntensity: 0.8">
+      </a-box>
+
+      <!-- Door -->
+      <a-box
+        position="0 1 3.6"
+        width="1.2"
+        height="2"
+        depth="0.15"
+        color="#0f172a">
+      </a-box>
+
+      <a-sphere
+        class="clickable house-marker"
+        data-house="Habitat Gamma"
+        position="0 6 0"
+        radius="0.35"
+        color="#c084fc"
+        material="emissive: #c084fc; emissiveIntensity: 1"
+        animation="property: scale; to: 1.2 1.2 1.2; dir: alternate; loop: true; dur: 1000">
+      </a-sphere>
+
+      <a-text
+        value="HABITAT GAMMA"
+        align="center"
+        position="0 6.8 0"
+        width="8"
+        color="#c084fc">
+      </a-text>
+
+    </a-entity>
+
+    <!-- Landing platform -->
+    <a-box
+      position="0 0.1 5"
+      width="10"
+      height="0.2"
+      depth="10"
+      color="#1e293b">
+    </a-box>
+
+    <!-- Lighting -->
+    <a-entity light="type: ambient; intensity: 0.8"></a-entity>
+
+    <a-entity
+      light="type: directional; color: #ffb08a; intensity: 1"
+      position="-5 10 5">
+    </a-entity>
+
+    <!-- Player -->
+    <a-entity id="rig" position="0 0 8">
+
+      <a-camera
+        id="camera"
+        position="0 1.6 0"
+        look-controls
+        wasd-controls="enabled: false; acceleration: 30; fly: false">
+
+        <a-cursor
+          fuse="false"
+          raycaster="objects: .clickable"
+          material="color: #00e5ff; shader: flat">
+        </a-cursor>
+
+      </a-camera>
+
+    </a-entity>
+
+  </a-scene>
+
+</body>
+</html>

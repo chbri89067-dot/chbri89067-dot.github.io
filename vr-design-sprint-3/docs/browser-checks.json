@@ -1,0 +1,35 @@
+{
+  "gravity_locked_during_launch": true,
+  "real_launch_handoff_seconds": 14.45,
+  "handoff_position_preserved": true,
+  "mouse_turning": true,
+  "wasd_walks": true,
+  "player_and_mug_float_without_moving_ship": true,
+  "vertical_float_controls": true,
+  "restore_and_mute_preference": true,
+  "actual_3d_reticle_click": true,
+  "gaze_dwell_activates": true,
+  "scene2_complete_event_once": true,
+  "audio": [
+    {
+      "id": "scene2-music",
+      "loaded": true,
+      "isPlaying": true,
+      "volume": 0.16
+    },
+    {
+      "id": "scene2-hum",
+      "loaded": true,
+      "isPlaying": true,
+      "volume": 0.035
+    }
+  ],
+  "touch_movement_and_mobile_layout": true,
+  "credits_page": true,
+  "direct_scene2_preview": true,
+  "external_requests": [],
+  "javascript_errors": [],
+  "http_errors": [],
+  "controller_event_wiring": "Non-bubbling thumbstick input moves the player; two controllers registered. No hardware test.",
+  "outer_wall_bound": true
+}

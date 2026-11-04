@@ -1,0 +1,40 @@
+{
+  "date": "2026-11-02",
+  "checks": {
+    "outlined_buttons_removed": true,
+    "drag_does_not_launch": true,
+    "direct_purple_button_click_starts_ignition": true,
+    "gravity_locked_during_launch": true,
+    "launch_handoff_seconds": 14.59,
+    "one_launch_handoff": true,
+    "mouse_turns": true,
+    "direct_gravity_click_floats_player_and_mug": true,
+    "restore_and_mute_preference": true,
+    "wasd_preserved": true,
+    "recenter_shortcut": true,
+    "gaze_dwell_preserved": true,
+    "scene2_completion_once": true,
+    "audio_credits_preserved": true,
+    "direct_scene2_preview": true,
+    "touch_tap_launches": true,
+    "two_finger_movement": true
+  },
+  "audio": [
+    {
+      "id": "scene2-music",
+      "loaded": true,
+      "isPlaying": true,
+      "volume": 0.16
+    },
+    {
+      "id": "scene2-hum",
+      "loaded": true,
+      "isPlaying": true,
+      "volume": 0.035
+    }
+  ],
+  "javascript_errors": [],
+  "http_errors": [],
+  "external_requests": [],
+  "physical_headset_tested": false
+}

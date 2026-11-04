@@ -36,6 +36,7 @@
       $('phone-export').addEventListener('click',()=>this.downloadReport());
       $('phone-checks').addEventListener('change',()=>this.saveReport());
       this.buildActions();
+      this.onMissionNavigation=()=>this.updateNavigationLabels();this.el.addEventListener('scene5-start',this.onMissionNavigation);this.el.addEventListener('scene6-start',this.onMissionNavigation);
       this.ready=true;
       const query=new URLSearchParams(location.search);
       if(query.has('cardboard')||AFRAME.utils.device.isMobile())this.showSetup();
@@ -94,7 +95,7 @@
       this.active=true;this.enteredAt=performance.now();this.frames=0;this.frameTimes=[];this.actions.object3D.visible=true;
       this.actions.querySelectorAll('[data-phone-action]').forEach(el=>el.classList.add('clickable'));
       document.body.classList.add('cardboard-active');$('phone-setup').hidden=true;
-      this.selector.sync();this.el.resize();this.refreshPause();
+      this.selector.sync();this.el.resize();this.refreshPause();this.updateNavigationLabels();
       const scene=this.el.components['scene-two'];scene.unlockAudio();
       this.requestWakeLock();this.saveReport();
       this.el.emit('cardboard-start',{preview:this.preview,eyeSeparation:this.eyeSeparation},false);
@@ -137,8 +138,14 @@
       actions.forEach(([action,text],i)=>{const plane=document.createElement('a-plane');plane.dataset.phoneAction=action;plane.setAttribute('width','.48');plane.setAttribute('height','.22');plane.setAttribute('position',`${(i%3-1)*.54} ${.25-Math.floor(i/3)*.28} 0`);plane.setAttribute('material',`shader: flat; color: ${i%2?'#0891b2':'#a855f7'}; side: front`);label(plane,text,.85);plane.addEventListener('click',()=>this.action(action));this.actions.appendChild(plane);});
       this.player.appendChild(this.actions);
     },
+    updateNavigationLabels:function(){
+      if(!this.actions)return;const outside=this.motion.environment==='mars';
+      for(const [action,label] of [['forward',outside?'FORWARD':'TO CONSOLE'],['back',outside?'BACK':'AWAY'],['seat',outside?'RETURN TO START':'RETURN TO SEAT']])this.actions.querySelector('[data-phone-action="'+action+'"] a-text').setAttribute('value',label);
+      for(const action of ['up','down']){const button=this.actions.querySelector('[data-phone-action="'+action+'"]');button.setAttribute('visible',!outside);button.classList.toggle('clickable',this.active&&!outside);}
+    },
     action: function (action) {
       if(!this.active||this.paused)return;
+      if(['left','right','forward','back'].includes(action)&&this.motion.locomotionEnabled===false)return;
       const p=this.player.object3D.position;
       if(action==='left')p.x-=.3;if(action==='right')p.x+=.3;
       if(action==='forward')p.z-=.3;if(action==='back')p.z+=.3;
@@ -171,7 +178,7 @@
     saveReport: function () {try{localStorage.setItem('mars-cardboard-test',JSON.stringify(this.report()));}catch{}},
     downloadReport: function () {this.saveReport();const blob=new Blob([JSON.stringify(this.report(),null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Mars-VR-phone-test.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);},
     remove: function () {
-      this.exit();clearInterval(this.diagnosticsTimer);window.removeEventListener('deviceorientation',this.orientation);window.removeEventListener('resize',this.resize);window.removeEventListener('orientationchange',this.resize);document.removeEventListener('visibilitychange',this.visibility);
+      this.exit();this.el.removeEventListener('scene5-start',this.onMissionNavigation);this.el.removeEventListener('scene6-start',this.onMissionNavigation);clearInterval(this.diagnosticsTimer);window.removeEventListener('deviceorientation',this.orientation);window.removeEventListener('resize',this.resize);window.removeEventListener('orientationchange',this.resize);document.removeEventListener('visibilitychange',this.visibility);
       if(this.renderer&&this.renderer.render===this.renderAdapter)this.renderer.render=this.originalRender;if(this.actions)this.actions.remove();
     }
   });

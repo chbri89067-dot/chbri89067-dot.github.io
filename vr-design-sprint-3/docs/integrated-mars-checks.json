@@ -1,0 +1,49 @@
+{
+  "date": "2026-11-03",
+  "sensorTest": "Synthetic deviceorientation in an emulated iPhone SE; no physical device tested",
+  "checks": {
+    "scene2_gravity_preserved": true,
+    "default_scene2_complete_offers_mars": true,
+    "gaze_continue_uses_original_cabin": true,
+    "phone_tap_cannot_start_landing_or_old_launch": true,
+    "original_descent_and_touchdown_timing": true,
+    "original_ship_dimensions_land_on_pad": true,
+    "same_stereo_session_and_audio_handoff": true,
+    "gaze_explore_enables_partner_walk": true,
+    "all_three_partner_habitat_markers_work": true,
+    "outdoor_gaze_move_and_recenter_keep_ship_fixed": true,
+    "one_phone_permission_for_all_scenes": true,
+    "gaze_exit_preserved": true,
+    "served_partner_audio_is_byte_identical": true,
+    "per_sound_credits_include_partner_source": true,
+    "desktop_original_launch_still_hands_off": true,
+    "desktop_landing_explore_and_wasd": true
+  },
+  "partner_audio": {
+    "loaded": true,
+    "playing": true,
+    "volume": 1,
+    "positional": true,
+    "loop": false,
+    "refDistance": 1,
+    "rolloff": 1,
+    "distanceModel": "inverse",
+    "duration": 26.64
+  },
+  "touchdown_seconds": 12.49,
+  "landing_pad_fit": {
+    "rig": [
+      0,
+      0.45000000000000284,
+      5
+    ],
+    "floorTop": 0.20000000000000281,
+    "padTop": 0.2,
+    "shipWithinPad": true,
+    "ceilingWidth": 6
+  },
+  "javascript_errors": [],
+  "http_errors": [],
+  "external_requests": [],
+  "physical_iPhone_tested": false
+}

@@ -1,0 +1,31 @@
+{
+  "date": "2026-11-02",
+  "browser": "Edge, emulated iPhone SE landscape 667x375 at DPR 2",
+  "sensors": "synthetic deviceorientation events; no physical iPhone or headset",
+  "checks": {
+    "screen_tap_does_not_launch_in_headset": true,
+    "permission_requested_from_real_tap": true,
+    "two_distinct_eye_cameras_using_aframe_renderer": true,
+    "launch_context_primed": true,
+    "synthetic_sensor_changes_camera_pose": true,
+    "gaze_progress_ring_visible": true,
+    "gaze_launch_uses_jesse_oscillators_on_unlocked_context": true,
+    "real_launch_handoff_preserved": true,
+    "gaze_gravity_off": true,
+    "gaze_requires_look_away_to_reselect": true,
+    "gaze_float_height_controls": true,
+    "gaze_gravity_restores": true,
+    "gaze_cabin_step": true,
+    "gaze_recenter": true,
+    "gaze_audio_toggle": true,
+    "stale_sensor_disables_gaze": true,
+    "portrait_pauses_selection": true,
+    "gaze_exit_restores_normal_input_and_pixel_ratio": true,
+    "local_test_record": true,
+    "denied_permission_does_not_enter": true
+  },
+  "javascript_errors": [],
+  "http_errors": [],
+  "external_requests": [],
+  "physical_iPhone_tested": false
+}

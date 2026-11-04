@@ -1,0 +1,13 @@
+{
+  "provided_archive": "VR-20261104T030209Z-1-001.zip",
+  "archive_sha256": "4b18f378adfcf8f66cf10417609defd37451496f597fc9ecaddae6da8212586f",
+  "file": "partner-liftoff.mp3",
+  "original_archive_path": "VR/assests/sounds/liftoff.mp3",
+  "sha256": "621bd3440459f5f9281017f9a4bf5b32e2cdc46ea185163b61eb2e5f71007f13",
+  "used_in": "Frame 5 landing, once, original volume 1 and positional playback; stops at the original Frame 6 handoff",
+  "source": "Supplied by project partner in the user-provided ZIP",
+  "creator": "Not stated in package",
+  "license": "Not stated in package; not represented as CC0",
+  "source_scene": "reference/partner-original/VR/scene5.html",
+  "source_script": "reference/partner-original/VR/js/landing.js"
+}

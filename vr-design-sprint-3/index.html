@@ -3,16 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <link rel="icon" href="data:,">
-  <title>Earth to Mars - Scenes 1 and 2 / A-Frame VR</title>
+  <title>Earth to Mars — Launch, Zero Gravity, Mars Landing & Arrival</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="manifest" href="manifest.webmanifest">
   <!-- Load A-Frame 1.8.0 -->
   <script src="vendor/aframe-1.8.0.min.js"></script>
-  <script src="js/scene2.js"></script>
-  <script src="js/cardboard-phone.js"></script>
-  <link rel="stylesheet" href="css/scene2.css">
+  <script src="js/scene2.js?v=mars-20261103"></script>
+  <script src="js/cardboard-phone.js?v=mars-20261103"></script>
+  <script src="js/mars-mission.js?v=mars-20261103"></script>
+  <link rel="stylesheet" href="css/scene2.css?v=mars-20261103">
   <style>
     body { margin: 0; background: #000; font-family: sans-serif; overflow: hidden; }
     #hud {
@@ -30,11 +31,12 @@
     <p>Click or tap the purple LAUNCH button on the console to start engine ignition. In VR, aim and select.</p>
   </div>
 
-  <a-scene scene-two cardboard-phone device-orientation-permission-ui="enabled: false" renderer="colorManagement: true" background="color: #020617">
+  <a-scene scene-two cardboard-phone mars-mission device-orientation-permission-ui="enabled: false" renderer="colorManagement: true" background="color: #020617">
 
     <!-- Asset Manager -->
     <a-assets>
       <!-- Scene 2 audio is separate from Jesse's unchanged launch synthesis. -->
+      <audio id="partner-landing-audio" src="assets/audio/partner-liftoff.mp3" preload="auto"></audio>
       <audio id="orbit-music" src="assets/audio/space-flight-wipics.mp3" preload="auto"></audio>
       <audio id="orbit-hum" src="assets/audio/spaceEngineLow_000.ogg" preload="auto"></audio>
       <audio id="gravity-click" src="assets/audio/click_001.ogg" preload="auto"></audio>
@@ -43,8 +45,8 @@
 
     <!-- Sun & Atmosphere Lighting -->
     <a-sky id="atmosphere" color="#38bdf8" follow-view></a-sky>
-    <a-light type="directional" position="120 220 80" intensity="1.3" color="#fffbeb"></a-light>
-    <a-light type="ambient" color="#64748b" intensity="0.65"></a-light>
+    <a-light id="launch-sun" type="directional" position="120 220 80" intensity="1.3" color="#fffbeb"></a-light>
+    <a-light id="launch-ambient" type="ambient" color="#64748b" intensity="0.65"></a-light>
 
     <!-- Camera Rig with Cursor (Interaction Reticle) -->
     <a-entity id="rig" position="0 25 0">
@@ -54,10 +56,14 @@
         <a-cursor id="reticle" screen-selection fuse="false" fuse-timeout="1800" raycaster="objects: .clickable" material="color: #00ffff; shader: flat" position="0 0 -1" scale="0.4 0.4 0.4"></a-cursor>
         <a-ring id="dwell-progress" position="0 0 -0.99" radius-inner="0.018" radius-outer="0.022" theta-start="90" theta-length="1" segments-theta="48" material="shader: flat; color: #c084fc; depthTest: false" visible="false"></a-ring>
         <a-text id="dwell-hint" font="vendor/fonts/Roboto-msdf.json" font-image="vendor/fonts/Roboto-msdf.png" shader="msdf" value="HOLD TO SELECT" align="center" position="0 -0.055 -0.99" width="0.5" color="#ffffff" visible="false"></a-text>
+        <a-text id="mission-head-status" font="vendor/fonts/Roboto-msdf.json" font-image="vendor/fonts/Roboto-msdf.png" shader="msdf" value="" align="center" position="0 .4 -1.7" width="1.7" color="#38bdf8" visible="false"></a-text>
+        <a-plane id="mission-fade" position="0 0 -.08" width="20" height="20" material="shader: flat; color: #000000; opacity: 0; transparent: true; depthTest: false; depthWrite: false" visible="false"></a-plane>
       </a-camera>
       <a-entity id="left-controller" laser-controls="hand: left; model: false" raycaster="objects: .clickable; far: 5" line="color: #38bdf8"></a-entity>
       <a-entity id="right-controller" laser-controls="hand: right; model: false" raycaster="objects: .clickable; far: 5" line="color: #c084fc"></a-entity>
       </a-entity>
+
+      <a-entity id="mars-landing-effects" position="0 -1 -2" visible="false"><a-sphere position="-1 0 0" radius="0.8" color="#d6b4a8" material="opacity: 0.5; transparent: true" animation="property: position; to: -4 0 -2; dur: 1500; loop: true"></a-sphere><a-sphere position="1 0 0" radius="0.8" color="#d6b4a8" material="opacity: 0.5; transparent: true" animation="property: position; to: 4 0 -2; dur: 1500; loop: true"></a-sphere><a-sphere position="0 -1 0" radius="0.6" color="#f97316" material="emissive: #ea580c; emissiveIntensity: 1" animation="property: position; to: 0 -5 1; dur: 1200; loop: true"></a-sphere></a-entity>
 
       <!-- ================= ENCLOSED SPACESHIP CABIN ================= -->
       <a-entity id="spaceship-cabin">
@@ -101,13 +107,13 @@
         <a-box position="0 0.88 -1.25" rotation="-15 0 0" width="1.2" height="0.1" depth="0.7" color="#1e293b"></a-box>
 
         <!-- LEFT UI CARD: Skip Ascent -->
-        <a-box position="-1.5 1.05 -1.3" rotation="-18 12 0" width="1.1" height="0.45" depth="0.02" color="#0891b2" material="emissive: #0e7490; emissiveIntensity: 0.6; opacity: 0.9; transparent: true">
-          <a-text font="vendor/fonts/Roboto-msdf.json" font-image="vendor/fonts/Roboto-msdf.png" shader="msdf" value="SKIP ASCENT\nHOLD / CLOSE EYES" align="center" position="0 0 0.02" width="1.5" color="#ffffff"></a-text>
+        <a-box id="mission-panel" position="-1.5 1.05 -1.3" rotation="-18 12 0" width="1.1" height="0.45" depth="0.02" color="#0891b2" material="emissive: #0e7490; emissiveIntensity: 0.6; opacity: 0.9; transparent: true">
+          <a-text font="vendor/fonts/Roboto-msdf.json" font-image="vendor/fonts/Roboto-msdf.png" shader="msdf" id="mission-control-label" value="SKIP ASCENT\nHOLD / CLOSE EYES" align="center" position="0 0 0.02" width="1.5" color="#ffffff"></a-text>
         </a-box>
 
         <!-- RIGHT UI CARD: Flight Systems (Single Organized Card) -->
         <a-box position="1.5 1.05 -1.3" rotation="-18 -12 0" width="1.1" height="0.45" depth="0.02" color="#0891b2" material="emissive: #0e7490; emissiveIntensity: 0.6; opacity: 0.9; transparent: true">
-          <a-text font="vendor/fonts/Roboto-msdf.json" font-image="vendor/fonts/Roboto-msdf.png" shader="msdf" value="FLIGHT SYSTEMS\nEARTH -> MARS" align="center" position="0 0 0.02" width="1.5" color="#ffffff"></a-text>
+          <a-text font="vendor/fonts/Roboto-msdf.json" font-image="vendor/fonts/Roboto-msdf.png" shader="msdf" id="flight-display-label" value="FLIGHT SYSTEMS\nEARTH -> MARS" align="center" position="0 0 0.02" width="1.5" color="#ffffff"></a-text>
         </a-box>
 
         <!-- Brian's only new ship fixture: control-panel gravity button. -->
@@ -217,6 +223,10 @@
     <a-entity id="gravity-click-sound" sound="src: #gravity-click; positional: false; volume: 0.24; poolSize: 3"></a-entity>
     <a-entity id="gravity-field-sound" sound="src: #gravity-field; positional: false; volume: 0.16; poolSize: 3"></a-entity>
 
+<a-entity id="mars-world" visible="false"><a-entity id="mars-landing-landscape"><a-plane position="0 0 -20" rotation="-90 0 0" width="500" height="500" color="#9c4935"></a-plane><a-sphere position="-30 -3 -60" radius="20" scale="2 0.5 1" color="#7c3026"></a-sphere><a-sphere position="35 -4 -70" radius="25" scale="1.5 0.5 1" color="#8b3a2b"></a-sphere><a-sphere position="-12 0 -15" radius="2" scale="1.5 0.6 1" color="#6b2b23"></a-sphere><a-sphere position="12 0 -20" radius="2.5" scale="1 0.7 1.2" color="#a34e38"></a-sphere><a-sphere position="18 0 -8" radius="1.5" scale="1.2 0.6 1" color="#6b2b23"></a-sphere></a-entity><a-entity id="mars-arrival-landscape" visible="false"><a-sphere position="0 -45 -100" radius="80" scale="1 0.5 1" color="#8c382b"></a-sphere><a-plane id="mars-ground" rotation="-90 0 0" position="0 0 0" width="500" height="500" color="#a34e38"></a-plane><a-sphere position="-40 0 -50" radius="20" scale="2 0.5 1" color="#7c3026"></a-sphere><a-sphere position="30 0 -60" radius="25" scale="1.5 0.5 1" color="#8b3a2b"></a-sphere><a-sphere position="-10 0.5 -10" radius="2" scale="1.5 0.6 1" color="#6b2b23"></a-sphere><a-sphere position="12 0.6 -15" radius="2" scale="1.3 0.8 1" color="#7c3026"></a-sphere><a-sphere position="-15 0.5 -25" radius="3" scale="1.5 0.5 1" color="#8b3a2b"></a-sphere><a-sphere position="18 0.5 -30" radius="3" scale="1.2 0.7 1" color="#713327"></a-sphere><a-box position="0 0.03 -15" width="5" height="0.05" depth="30" color="#6b3028"></a-box><a-cylinder position="-2.5 0.08 -5" radius="0.12" height="0.1" color="#38bdf8" material="emissive: #38bdf8; emissiveIntensity: 1"></a-cylinder><a-cylinder position="2.5 0.08 -10" radius="0.12" height="0.1" color="#c084fc" material="emissive: #c084fc; emissiveIntensity: 1"></a-cylinder><a-cylinder position="-2.5 0.08 -20" radius="0.12" height="0.1" color="#38bdf8" material="emissive: #38bdf8; emissiveIntensity: 1"></a-cylinder><a-entity id="house1" position="-8 0 -18"><a-box position="0 2 0" width="6" height="4" depth="5" color="#1e293b"></a-box><a-cone position="0 4.5 0" radius-bottom="3.8" radius-top="0.2" height="1.5" color="#334155"></a-cone><a-box position="-1.5 2.3 2.55" width="1.3" height="1.2" depth="0.1" color="#0891b2" material="emissive: #0e7490; emissiveIntensity: 0.8"></a-box><a-box position="1.5 2.3 2.55" width="1.3" height="1.2" depth="0.1" color="#0891b2" material="emissive: #0e7490; emissiveIntensity: 0.8"></a-box><a-box position="0 1 2.55" width="1.2" height="2" depth="0.15" color="#0f172a"></a-box><a-sphere class="clickable house-marker" data-house="Habitat Alpha" position="0 5.5 0" radius="0.35" color="#c084fc" material="emissive: #c084fc; emissiveIntensity: 1" animation="property: scale; to: 1.2 1.2 1.2; dir: alternate; loop: true; dur: 1000"></a-sphere><a-text value="HABITAT ALPHA" align="center" position="0 6.3 0" width="8" color="#38bdf8" font="vendor/fonts/Roboto-msdf.json" font-image="vendor/fonts/Roboto-msdf.png" shader="msdf"></a-text></a-entity><a-entity id="house2" position="8 0 -30"><a-cylinder position="0 2 0" radius="3" height="4" color="#334155"></a-cylinder><a-sphere position="0 4 0" radius="3" scale="1 0.5 1" color="#475569"></a-sphere><a-box position="0 2 2.9" width="2" height="1.5" depth="0.1" color="#0891b2" material="emissive: #0e7490; emissiveIntensity: 0.8"></a-box><a-box position="0 1 3" width="1" height="2" depth="0.15" color="#0f172a"></a-box><a-sphere class="clickable house-marker" data-house="Habitat Beta" position="0 5.5 0" radius="0.35" color="#38bdf8" material="emissive: #38bdf8; emissiveIntensity: 1" animation="property: scale; to: 1.2 1.2 1.2; dir: alternate; loop: true; dur: 1000"></a-sphere><a-text value="HABITAT BETA" align="center" position="0 6.3 0" width="8" color="#38bdf8" font="vendor/fonts/Roboto-msdf.json" font-image="vendor/fonts/Roboto-msdf.png" shader="msdf"></a-text></a-entity><a-entity id="house3" position="0 0 -45"><a-sphere position="0 2.5 0" radius="4" scale="1.5 0.8 1" color="#1e293b"></a-sphere><a-box position="0 2 3.5" width="2" height="1.5" depth="0.1" color="#0891b2" material="emissive: #0e7490; emissiveIntensity: 0.8"></a-box><a-box position="0 1 3.6" width="1.2" height="2" depth="0.15" color="#0f172a"></a-box><a-sphere class="clickable house-marker" data-house="Habitat Gamma" position="0 6 0" radius="0.35" color="#c084fc" material="emissive: #c084fc; emissiveIntensity: 1" animation="property: scale; to: 1.2 1.2 1.2; dir: alternate; loop: true; dur: 1000"></a-sphere><a-text value="HABITAT GAMMA" align="center" position="0 6.8 0" width="8" color="#c084fc" font="vendor/fonts/Roboto-msdf.json" font-image="vendor/fonts/Roboto-msdf.png" shader="msdf"></a-text></a-entity></a-entity><a-box position="0 0.1 5" width="10" height="0.2" depth="10" color="#1e293b" id="mars-landing-pad"></a-box><a-sphere id="mars-planet" position="0 35 -120" radius="35" rotation="0 0 0" animation="property: rotation; to: 0 360 0; loop: true; dur: 120000; easing: linear" mars-surface=""></a-sphere><a-entity id="mars-surface-lights" visible="false"><a-entity light="type: ambient; intensity: 0.8"></a-entity><a-entity light="type: directional; color: #ffb08a; intensity: 1" position="-5 10 5"></a-entity></a-entity><a-plane id="mars-explore-btn" position="0 1.25 -4.5" width="1.8" height=".42" visible="false" material="color: #c084fc; emissive: #a855f7; emissiveIntensity: .6; side: double"><a-text id="mars-explore-label" value="EXPLORE MARS" align="center" position="0 0 .025" width="2.3" color="#ffffff" font="vendor/fonts/Roboto-msdf.json" font-image="vendor/fonts/Roboto-msdf.png" shader="msdf"></a-text></a-plane></a-entity>
+    <a-sky id="mars-sky" color="#8c382b" visible="false" follow-view></a-sky>
+    <a-entity id="partner-landing-sound" position="0 .45 5" sound="src: #partner-landing-audio; volume: 1; positional: true"></a-entity>
+
   </a-scene>
 
   <a id="phone-open" href="#phone-setup">Phone headset</a>
@@ -227,7 +237,8 @@
       <p>Before putting the phone in the viewer, turn it sideways and tap Start to allow motion and sound. After setup, use your head to aim the center reticle; the experience uses hands-free gaze selection.</p>
       <ol>
         <li>Look at the purple <strong>LAUNCH</strong> control for 1.8 seconds.</li>
-        <li>In space, look at <strong>GRAVITY</strong> to float or settle down.</li>
+        <li>In space, look at <strong>GRAVITY</strong> to float or settle down. After Scene 2, select <strong>CONTINUE TO MARS</strong>.</li>
+        <li>Look at <strong>LAND</strong> to descend. On Mars, select <strong>EXPLORE</strong>, then look at the glowing habitat markers.</li>
         <li>Look behind you for cabin movement, height, sound and exit controls. Look away before selecting the same control again.</li>
       </ol>
       <p class="phone-note">Hold the center reticle on a control until the purple ring fills. Screen taps do not select controls while the viewer is running. Selection starts after a short settling delay. This tracks head turning, not your eyes or physical walking.</p>
