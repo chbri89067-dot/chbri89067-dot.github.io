@@ -93,6 +93,7 @@
       const player=document.getElementById('player');
       player.removeAttribute('vr-menu');player.removeAttribute('mars-walk');
       for(const id of ['phone-actions','mars-explore-btn','mission-head-status','hud','movement-help','audio-sources','phone-open','phone-exit'])document.getElementById(id)?.remove();
+      document.getElementById('phone-rotate')?.style.setProperty('display','none','important');
       this.el.querySelectorAll('.a-enter-vr,.a-enter-ar').forEach(node=>node.remove());
       this.pendingStart=true;
     },

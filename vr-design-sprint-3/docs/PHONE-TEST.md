@@ -1,6 +1,6 @@
 # Test the complete mobile VR project
 
-No account is required. Full experience: https://chbri89067-dot.github.io/vr-design-sprint-3/?cardboard=1&v=ring-clear-mars-20261104
+No account is required. Full experience: https://chbri89067-dot.github.io/vr-design-sprint-3/?cardboard=1&v=ring-clear-mars-20261104-r2
 
 ## Start in Safari
 
@@ -29,10 +29,10 @@ The ring uses an opaque white fill, a 70%-opaque purple track and an opaque blac
 
 ## Fast tests and download
 
-- Scene 3 and window: https://chbri89067-dot.github.io/vr-design-sprint-3/?scene=3&cardboard=1&v=ring-clear-mars-20261104
-- Scene 4: https://chbri89067-dot.github.io/vr-design-sprint-3/?scene=4&cardboard=1&v=ring-clear-mars-20261104
-- Mars view: https://chbri89067-dot.github.io/vr-design-sprint-3/?scene=6&cardboard=1&v=ring-clear-mars-20261104
-- Complete project: https://chbri89067-dot.github.io/vr-design-sprint-3/VR-Design-Sprint-3-Mobile-Complete.zip?v=ring-clear-mars-20261104
+- Scene 3 and window: https://chbri89067-dot.github.io/vr-design-sprint-3/?scene=3&cardboard=1&v=ring-clear-mars-20261104-r2
+- Scene 4: https://chbri89067-dot.github.io/vr-design-sprint-3/?scene=4&cardboard=1&v=ring-clear-mars-20261104-r2
+- Mars view: https://chbri89067-dot.github.io/vr-design-sprint-3/?scene=6&cardboard=1&v=ring-clear-mars-20261104-r2
+- Complete project: https://chbri89067-dot.github.io/vr-design-sprint-3/VR-Design-Sprint-3-Mobile-Complete.zip?v=ring-clear-mars-20261104-r2
 
 The extracted package includes START-HERE.html and READ-ME-FIRST.txt. To run on a computer, use Node.js 18+ and Start-VR.cmd or npm start. Use the public HTTPS link for the phone test.
 

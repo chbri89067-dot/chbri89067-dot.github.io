@@ -4,7 +4,7 @@ A-Frame 1.8.0 with all six scenes in one scene, camera and renderer. This mobile
 
 ## Phone test
 
-Open https://chbri89067-dot.github.io/vr-design-sprint-3/?cardboard=1&v=ring-clear-mars-20261104 in Safari. Turn the phone sideways, tap Allow motion & start viewer and approve motion before placing it in the headset. This initial gesture prepares Safari motion and audio. After setup, turn your head to aim the center reticle and hold a target for one second. A purple outline appears, fills clockwise, disappears and selects once. Look away before selecting that target again. Looking away early cancels and resets the fill.
+Open https://chbri89067-dot.github.io/vr-design-sprint-3/?cardboard=1&v=ring-clear-mars-20261104-r2 in Safari. Turn the phone sideways, tap Allow motion & start viewer and approve motion before placing it in the headset. This initial gesture prepares Safari motion and audio. After setup, turn your head to aim the center reticle and hold a target for one second. A purple outline appears, fills clockwise, disappears and selects once. Look away before selecting that target again. Looking away early cancels and resets the fill.
 
 Set Selection hold to 0.5, 1, 1.5 or 2 seconds before starting. Developers can set gaze-dwell.duration in milliseconds; it is clamped to 500–2000. The ?dwell=0.5 through ?dwell=2 query option supports intermediate values. A shared bold HOLD TO SELECT label is at least four times the previous rendered size and disappears on selection or cancellation.
 
